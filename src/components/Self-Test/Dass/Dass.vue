@@ -1,0 +1,572 @@
+<template>
+  <div class="container">
+  <h1 id="dass">Depression, Anxiety and Stress Scale (DASS)</h1>
+
+  <div class = "container" id = "test">
+    <h4>Please read each statement and select a number 0, 1 , 2 or 3 that indicates how much the statement applied to you over the past week.</h4>
+    <h6>There are no right or wrong answers. Do not spend too much time on any statement.</h6><br>
+    <p class="malayHeader">Sila baca setiap kenyataan di bawah dan pilih jawapan anda berdasarkan jawapan 0, 1, 2 atau 3 bagi menggambarkan keadaan anda sepanjang minggu yang lalu.
+      Tiada jawapan yang betul atau salah. Jangan mengambil masa yang terlalu lama untuk mana-mana kenyataan.</p>
+    <hr>
+
+    <div class="scale">
+      <div class = "r">
+        <p id = "num">0</p>
+        <p class="indicator">Did not apply to me at all<br><span class="malay">Tidak langsung menggambarkan keadaan saya</span></p>
+      </div>
+
+      <div class = "r">
+        <p id = "num">1</p>
+        <p class="indicator">Applied to me to some degree, or some of the time<br><span class="malay">Sedikit atau jarang-jarang menggambarkan keadaan saya</span></p>
+      </div>
+
+      <div class = "r">
+        <p id = "num">2</p>
+        <p class="indicator">Applied to me to a considerable degree, or a good part of time<br><span class="malay">Banyak atau kerapkali menggambarkan keadaan saya</span></p>
+      </div>
+
+      <div class = "r">
+        <p id = "num">3</p>
+        <p class="indicator">Applied to me very much, or most of the time<br><span class="malay">Sangat banyak atau sangat kerap menggambarkan keadaan saya</span></p>
+      </div>
+    </div>
+
+
+    <div class = "mt-4">
+      <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+    </div>
+  </div>
+</div>
+</template>
+
+<script>
+export default {
+  data(){
+    return{
+
+      depressionScore: 0,
+      anxietyScore: 0,
+      stressScore: 0,
+      depressionLevel: '',
+      anxietyLevel: '',
+      stressLevel: '',
+      depressionDesc: '',
+      anxietyDesc: '',
+      stressDesc: '',
+      depressionColour: '',
+      anxietyColour: '',
+      stressColour: '',
+      depressionText: '',
+      anxietyText: '',
+      stressText: '',
+      depressionWidth: [],
+      anxietyWidth: [],
+      stressWidth: [],
+      depressionLabel: [],
+      anxietyLabel: [],
+      stressLabel: [],
+
+      model: {
+        depression: [],
+        anxiety: [],
+        stress: []
+      },
+      schema: {
+        fields: [
+          {
+            type: "radios",
+            label: "<ol start = '1'><li class='label-width'>I found it hard to wind down.<span class='requiredLabel'> *</span><br><span class='malay'>Saya dapati diri saya sukar ditenteramkan.</span></li></ol>",
+            model: "stress[0]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'odd-row'
+
+          },
+          {
+            type: "radios",
+            label: "<ol start = '2'><li class='label-width'>I was aware of dryness of my mouth.<span class='requiredLabel'> *</span><br><span class='malay'>Saya sedar mulut saya terasa kering.</span></li></ol>",
+            model: "anxiety[0]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'even-row'
+          },
+          {
+            type: "radios",
+            label: "<ol start = '3'><li class='label-width'>I couldn't seem to experience any positive feeling at all.<span class='requiredLabel'> *</span><br><span class='malay'>Saya tidak dapat mengalami perasaan positif sama sekali.</span></li></ol>",
+            model: "depression[0]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'odd-row'
+          },
+          {
+            type: "radios",
+            label: "<ol start = '4'><li class='label-width'>I experienced breathing difficulty (eg, excessively rapid breathing, breathlessness in <br>the absence of physical exertion).<span class='requiredLabel'> *</span><br><span class='malay'>Saya mengalami kesukaran bernafas (contohnya pernafasan yang laju, tercungap-cungap walaupun<br> tidak melakukan senaman fizikal).</span></li></ol>",
+            model: "anxiety[1]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'even-row'
+          },
+          {
+            type: "radios",
+            label: "<ol start = '5'><li class='label-width'>I found it difficult to work up the initiative to do things.<span class='requiredLabel'> *</span><br><span class='malay'>Saya sukar untuk mendapatkan semangat bagi melakukan sesuatu perkara.</span></li></ol>",
+            model: "depression[1]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'odd-row'
+          },
+          {
+            type: "radios",
+            label: "<ol start = '6'><li class='label-width'>I tended to over-react to situations.<span class='requiredLabel'> *</span><br><span class='malay'>Saya cenderung untuk bertindak keterlaluan dalam sesuatu keadaan.</span></li></ol>",
+            model: "stress[1]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'even-row'
+          },
+          {
+            type: "radios",
+            label: "<ol start = '7'><li class='label-width'>I experienced trembling (eg, in the hands).<span class='requiredLabel'> *</span><br><span class='malay'>Saya rasa menggeletar (contohnya pada tangan).</span></li></ol>",
+            model: "anxiety[2]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'odd-row'
+          },
+          {
+            type: "radios",
+            label: "<ol start = '8'><li class='label-width'>I felt that I was using a lot of nervous energy.<span class='requiredLabel'> *</span><br><span class='malay'>Saya rasa saya menggunakan banyak tenaga dalam keadaan cemas.</span></li></ol>",
+            model: "stress[2]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'even-row'
+          },
+          {
+            type: "radios",
+            label: "<ol start = '9'><li class='label-width'>I was worried about situations in which might panic and make a fool of myself.<span class='requiredLabel'> *</span><br><span class='malay'>Saya bimbang keadaan di mana saya mungkin menjadi panik dan melakukan perkara yang <br>membodohkan diri sendiri.</span></li></ol>",
+            model: "anxiety[3]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'odd-row'
+          },
+          {
+            type: "radios",
+            label: "<ol start = '10'><li class='label-width'>I felt that I had nothing to look forward to.<span class='requiredLabel'> *</span><br><span class='malay'>Saya rasa saya tidak mempunyai apa-apa untuk diharapkan.</span></li></ol>",
+            model: "depression[2]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'even-row'
+          },
+          {
+            type: "radios",
+            label: "<ol start = '11'><li class='label-width'>I found myself getting agigate.<span class='requiredLabel'> *</span><br><span class='malay'>Saya dapati diri saya semakin gelisah.</span></li></ol>",
+            model: "stress[3]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'odd-row'
+          },
+          {
+            type: "radios",
+            label: "<ol start = '12'><li class='label-width'>I found it difficult to relax.<span class='requiredLabel'> *</span><br><span class='malay'>Saya rasa sukar untuk relaks.</span></li></ol>",
+            model: "stress[4]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'even-row'
+          },
+          {
+            type: "radios",
+            label: "<ol start = '13'><li class='label-width'>I felt down-hearted and blue.<span class='requiredLabel'> *</span><br><span class='malay'>Saya rasa sedih dan murung.</span></li></ol>",
+            model: "depression[3]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'odd-row'
+          },
+          {
+            type: "radios",
+            label: "<ol start = '14'><li class='label-width'>I was intolerant of anything that kept me from getting on with what I was doing.<span class='requiredLabel'> *</span><br><span class='malay'>Saya tidak dapat menahan sabar dengan perkara yang menghalang saya meneruskan apa yang <br>saya lakukan.</span></li></ol>",
+            model: "stress[5]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'even-row'
+          },
+          {
+            type: "radios",
+            label: "<ol start = '15'><li class='label-width'>I felt I was close to panic.<span class='requiredLabel'> *</span><br><span class='malay'>Saya rasa hampir-hampir menjadi panik/cemas.</span></li></ol>",
+            model: "anxiety[4]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'odd-row'
+          },
+          {
+            type: "radios",
+            label: "<ol start = '16'><li class='label-width'>I was unable to become enthusiastic about anything.<span class='requiredLabel'> *</span><br><span class='malay'>Saya tidak bersemangat dengan apa jua yang saya lakukan.</span></li></ol>",
+            model: "depression[4]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'even-row'
+          },
+          {
+            type: "radios",
+            label: "<ol start = '17'><li class='label-width'>I felt I wasn't worth much as a person.<span class='requiredLabel'> *</span><br><span class='malay'>Saya rasa tidak begitu berharga sebagai seorang individu.</span></li></ol>",
+            model: "depression[5]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'odd-row'
+          },
+          {
+            type: "radios",
+            label: "<ol start = '18'><li class='label-width'>I felt that I was rather touchy.<span class='requiredLabel'> *</span><br><span class='malay'>Saya rasa saya mudah tersentuh.</span></li></ol>",
+            model: "stress[6]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'even-row'
+          },
+          {
+            type: "radios",
+            label: "<ol start = '19'><li class='label-width'>I was aware of the action of my heart in the absence of physical exertion (eg, sense <br>of heart rate increase, heart missing a beat).<span class='requiredLabel'> *</span><br><span class='malay'>Saya sedar tindakbalas jantung saya walaupun tidak melakukan aktiviti fizikal (contohnya kadar <br>denyutan jantung bertambah, atau denyutan jantung berkurang).</span></li></ol>",
+            model: "anxiety[5]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'odd-row'
+          },
+          {
+            type: "radios",
+            label: "<ol start = '20'><li class='label-width'>I felt scared without any good reason.<span class='requiredLabel'> *</span><br><span class='malay'>Saya berasa takut tanpa sebab yang munasabah.</span></li></ol>",
+            model: "anxiety[6]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'even-row'
+          },
+          {
+            type: "radios",
+            label: "<ol start = '21'><li class='label-width'>I felt that life was meaningless.<span class='requiredLabel'> *</span><br><span class='malay'>Saya rasa hidup ini tidak bermakna.</span></li></ol>",
+            model: "depression[6]",
+            values: [0, 1, 2, 3],
+            required: true,
+            validator: 'required',
+            styleClasses: 'odd-row'
+          },
+
+        ],
+        groups: [
+          {
+              styleClasses: 'groupBtn',
+              fields: [
+                {
+                  id: 'rtn',
+                  type: 'submit',
+                  label: '',
+                  onSubmit: ()=>{
+                    this.redirectToHome()
+                  },
+                  buttonText: 'Return',
+                  validateBeforeSubmit: false
+                },
+                {
+                  type: 'submit',
+                  label: '',
+                  onSubmit: ()=>{
+                    this.redirectToResult()
+                  },
+                  buttonText: 'Submit',
+                  validateBeforeSubmit:  true,
+                }
+              ]
+            }
+          ]
+      },
+      formOptions: {
+        validateAfterLoad: false,
+        validateAfterChanged: true,
+        validateAsync: false,
+        validationErrorClass: "error-field"
+      }
+    }
+  },
+  methods: {
+    redirectToHome(){
+      this.$router.push({path: '/dass'})
+    },
+    async redirectToResult(){
+      this.stressScore = this.model.stress.reduce((a, b) => a + b, 0)
+      this.anxietyScore = this.model.anxiety.reduce((a, b) => a + b, 0)
+      this.depressionScore = this.model.depression.reduce((a, b) => a + b, 0)
+
+      const url = 'http://127.0.0.1:8000/api/getTestRange?type=2'
+      const response = await this.$axios.get(url);
+      this.rangeInfo = response.data.data;
+
+      if(this.stressScore>=this.rangeInfo[0].range_min_value && this.stressScore<this.rangeInfo[0].range_max_value+1){
+        this.stressLevel = this.rangeInfo[0].range_label
+        this.stressDesc = this.rangeInfo[0].range_description
+        this.stressColour = '#CDEE4A'
+        this.stressText = 'diagTextNormal'
+      }else if(this.stressScore>=this.rangeInfo[1].range_min_value && this.stressScore<this.rangeInfo[1].range_max_value+1){
+        this.stressLevel = this.rangeInfo[1].range_label
+        this.stressDesc = this.rangeInfo[1].range_description
+        this.stressColour = '#EEE84A'
+        this.stressText = 'diagTextNormal'
+      }else if(this.stressScore>=this.rangeInfo[2].range_min_value && this.stressScore<this.rangeInfo[2].range_max_value+1){
+        this.stressLevel = this.rangeInfo[2].range_label
+        this.stressDesc = this.rangeInfo[2].range_description
+        this.stressColour = '#EED14A'
+        this.stressText = 'diagTextNormal'
+      }else if(this.stressScore>=this.rangeInfo[3].range_min_value && this.stressScore<this.rangeInfo[3].range_max_value+1){
+        this.stressLevel = this.rangeInfo[3].range_label
+        this.stressDesc = this.rangeInfo[3].range_description
+        this.stressColour = '#EE9B4A'
+        this.stressText = 'diagTextWarn'
+      }else{
+        this.stressLevel = this.rangeInfo[4].range_label
+        this.stressDesc = this.rangeInfo[4].range_description
+        this.stressColour = '#EE5D4A'
+        this.stressText = 'diagTextWarn'
+      }
+
+      this.stressWidth[0] = parseFloat((((this.rangeInfo[0].range_max_value - this.rangeInfo[0].range_min_value + 1)/22)*100).toFixed(2))
+      this.stressWidth[1] = parseFloat((((this.rangeInfo[1].range_max_value - this.rangeInfo[1].range_min_value + 1)/22)*100).toFixed(2))
+      this.stressWidth[2] = parseFloat((((this.rangeInfo[2].range_max_value - this.rangeInfo[2].range_min_value + 1)/22)*100).toFixed(2))
+      this.stressWidth[3] = parseFloat((((this.rangeInfo[3].range_max_value - this.rangeInfo[3].range_min_value + 1)/22)*100).toFixed(2))
+      this.stressWidth[4] = parseFloat((((this.rangeInfo[4].range_max_value - this.rangeInfo[4].range_min_value + 1)/22)*100).toFixed(2))
+
+      this.stressLabel = [this.rangeInfo[0].range_label, this.rangeInfo[1].range_label, this.rangeInfo[2].range_label, this.rangeInfo[3].range_label, this.rangeInfo[4].range_label]
+
+      if(this.anxietyScore>=this.rangeInfo[5].range_min_value && this.anxietyScore<this.rangeInfo[5].range_max_value+1){
+        this.anxietyLevel = this.rangeInfo[5].range_label
+        this.anxietyDesc = this.rangeInfo[5].range_description
+        this.anxietyColour = '#CDEE4A'
+        this.anxietyText = 'diagTextNormal'
+      }else if(this.anxietyScore>=this.rangeInfo[6].range_min_value && this.anxietyScore<this.rangeInfo[6].range_max_value+1){
+        this.anxietyLevel = this.rangeInfo[6].range_label
+        this.anxietyDesc = this.rangeInfo[6].range_description
+        this.anxietyColour = '#EEE84A'
+        this.anxietyText = 'diagTextNormal'
+      }else if(this.anxietyScore>=this.rangeInfo[7].range_min_value && this.anxietyScore<this.rangeInfo[7].range_max_value+1){
+        this.anxietyLevel = this.rangeInfo[7].range_label
+        this.anxietyDesc = this.rangeInfo[7].range_description
+        this.anxietyColour = '#EED14A'
+        this.anxietyText = 'diagTextNormal'
+      }else if(this.anxietyScore>=this.rangeInfo[8].range_min_value && this.anxietyScore<this.rangeInfo[8].range_max_value+1){
+        this.anxietyLevel = this.rangeInfo[8].range_label
+        this.anxietyDesc = this.rangeInfo[8].range_description
+        this.anxietyColour = '#EE9B4A'
+        this.anxietyText = 'diagTextWarn'
+      }else{
+        this.anxietyLevel = this.rangeInfo[9].range_label
+        this.anxietyDesc = this.rangeInfo[9].range_description
+        this.anxietyColour = '#EE5D4A'
+        this.anxietyText = 'diagTextWarn'
+      }
+
+      this.anxietyWidth[0] = parseFloat((((this.rangeInfo[5].range_max_value - this.rangeInfo[5].range_min_value + 1)/22)*100).toFixed(2))
+      this.anxietyWidth[1] = parseFloat((((this.rangeInfo[6].range_max_value - this.rangeInfo[6].range_min_value + 1)/22)*100).toFixed(2))
+      this.anxietyWidth[2] = parseFloat((((this.rangeInfo[7].range_max_value - this.rangeInfo[7].range_min_value + 1)/22)*100).toFixed(2))
+      this.anxietyWidth[3] = parseFloat((((this.rangeInfo[8].range_max_value - this.rangeInfo[8].range_min_value + 1)/22)*100).toFixed(2))
+      this.anxietyWidth[4] = parseFloat((((this.rangeInfo[9].range_max_value - this.rangeInfo[9].range_min_value + 1)/22)*100).toFixed(2))
+
+      this.anxietyLabel = [this.rangeInfo[5].range_label, this.rangeInfo[6].range_label, this.rangeInfo[7].range_label, this.rangeInfo[8].range_label, this.rangeInfo[9].range_label]
+
+      if(this.depressionScore>=this.rangeInfo[10].range_min_value && this.depressionScore<this.rangeInfo[10].range_max_value+1){
+        this.depressionLevel = this.rangeInfo[10].range_label
+        this.depressionDesc = this.rangeInfo[10].range_description
+        this.depressionColour = '#CDEE4A'
+        this.depressionText = 'diagTextNormal'
+      }else if(this.depressionScore>=this.rangeInfo[11].range_min_value && this.depressionScore<this.rangeInfo[11].range_max_value+1){
+        this.depressionLevel = this.rangeInfo[11].range_label
+        this.depressionDesc = this.rangeInfo[11].range_description
+        this.depressionColour = '#EEE84A'
+        this.depressionText = 'diagTextNormal'
+      }else if(this.depressionScore>=this.rangeInfo[12].range_min_value && this.depressionScore<this.rangeInfo[12].range_max_value+1){
+        this.depressionLevel = this.rangeInfo[12].range_label
+        this.depressionDesc = this.rangeInfo[12].range_description
+        this.depressionColour = '#EED14A'
+        this.depressionText = 'diagTextNormal'
+      }else if(this.depressionScore>=this.rangeInfo[13].range_min_value && this.depressionScore<this.rangeInfo[13].range_max_value+1){
+        this.depressionLevel = this.rangeInfo[13].range_label
+        this.depressionDesc = this.rangeInfo[13].range_description
+        this.depressionColour = '#EE9B4A'
+        this.depressionText = 'diagTextWarn'
+      }else{
+        this.depressionLevel = this.rangeInfo[14].range_label
+        this.depressionDesc = this.rangeInfo[14].range_description
+        this.depressionColour = '#EE5D4A'
+        this.depressionText = 'diagTextWarn'
+      }
+
+      this.depressionWidth[0] = parseFloat((((this.rangeInfo[10].range_max_value - this.rangeInfo[10].range_min_value + 1)/22)*100).toFixed(2))
+      this.depressionWidth[1] = parseFloat((((this.rangeInfo[11].range_max_value - this.rangeInfo[11].range_min_value + 1)/22)*100).toFixed(2))
+      this.depressionWidth[2] = parseFloat((((this.rangeInfo[12].range_max_value - this.rangeInfo[12].range_min_value + 1)/22)*100).toFixed(2))
+      this.depressionWidth[3] = parseFloat((((this.rangeInfo[13].range_max_value - this.rangeInfo[13].range_min_value + 1)/22)*100).toFixed(2))
+      this.depressionWidth[4] = parseFloat((((this.rangeInfo[14].range_max_value - this.rangeInfo[14].range_min_value + 1)/22)*100).toFixed(2))
+
+      this.depressionLabel = [this.rangeInfo[10].range_label, this.rangeInfo[11].range_label, this.rangeInfo[12].range_label, this.rangeInfo[13].range_label, this.rangeInfo[14].range_label]
+
+      let data = {
+        stress: {
+          name: 'STRESS',
+          score: this.stressScore,
+          level: this.stressLevel,
+          desc: this.stressDesc,
+          colour: this.stressColour,
+          width: this.stressWidth,
+          text: this.stressText,
+          label: this.stressLabel
+        },
+        anxiety: {
+          name: 'ANXIETY',
+          score: this.anxietyScore,
+          level: this.anxietyLevel,
+          desc: this.anxietyDesc,
+          colour: this.anxietyColour,
+          width: this.anxietyWidth,
+          text: this.anxietyText,
+          label: this.anxietyLabel
+        },
+        depression: {
+          name: 'DEPRESSION',
+          score: this.depressionScore,
+          level: this.depressionLevel,
+          desc: this.depressionDesc,
+          colour: this.depressionColour,
+          width: this.depressionWidth,
+          text: this.depressionText,
+          label: this.depressionLabel
+        }
+      }
+      sessionStorage.setItem('dassData', JSON.stringify(data))
+
+      const testOnly = new FormData();
+      testOnly.append("type", "2");
+      testOnly.append("score", this.stressScore + '-' + this.anxietyScore + '-' + this.depressionScore);
+      this.$axios
+        .post('http://127.0.0.1:8000/api/postTest', testOnly)
+        .then((response) =>{
+               this.$router.push({path: '/dass-results', query: {id: response.data.id}})
+        })
+    }
+  }
+}
+</script>
+
+<style>
+#dass {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 50px;
+}
+h4, h6 {
+  text-align: center;
+}
+hr {
+  margin: 40px 0px 40px 0px;
+}
+#test {
+  box-shadow: 0px 10px 15px #6b6b6b9c;
+  padding: 40px 40px 100px 40px;
+  border-radius: 20px;
+  margin-bottom: 50px;
+}
+.malay{
+  font-style: italic;
+  font-size: small;
+  color: dimgrey;
+}
+.malayHeader{
+  font-style: italic;
+  font-size: small;
+  text-align: center;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+.label-width{
+  width: 700px;
+}
+div.errors.help-block{
+  display: none;
+  width: 0px;
+}
+.error-field{
+  background: #F9C1C6;
+}
+.form-group.required>label:after{
+  display: none;
+  width: 0px;
+}
+.requiredLabel{
+  color: red;
+}
+#num {
+  max-height: 30px;
+  margin: 10px 20px;
+  text-align: center;
+  padding: 15px 12px;
+  background: #eee;
+  border-radius: 20px;
+  border-color: grey;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: #777;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.r{
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+}
+.indicator{
+  margin: 10px 0px;
+}
+.scale{
+  margin: 0px 15px 40px 15px;
+}
+.vue-form-generator .field-wrap{
+  align-items: center;
+}
+@media (max-width: 760px) {
+    #test {
+        padding: 40px 20px 100px 20px;
+        margin-bottom: 50px;
+    }
+    .label-width{
+      width:100%
+    }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+    #test {
+        padding: 40px 20px 100px 20px;
+        margin-bottom: 50px;
+    }
+    .label-width{
+      width:320px
+    }
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+    #test {
+        padding: 40px 20px 100px 20px;
+        margin-bottom: 50px;
+    }
+    .label-width{
+      width:500px
+    }
+}
+</style>

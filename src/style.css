@@ -1,0 +1,15 @@
+.vue-form-generator .form-control[id=s-arrow]{
+    display:block;
+    padding:6px 12px;
+    font-size:14px;
+    line-height:1.42857143;
+    color:#555;
+    background-color:#fff !important;
+    background-image: url("caret-down-fill.svg");
+    background-repeat: no-repeat;
+    background-position: 98% 50%;
+    border:1px solid #ccc;
+    border-radius:4px;
+    box-shadow:inset 0 1px 1px rgba(0,0,0,.075);
+    transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
