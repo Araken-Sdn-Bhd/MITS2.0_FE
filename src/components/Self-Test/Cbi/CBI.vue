@@ -1,49 +1,54 @@
 <template>
-  <div class="container">
-  <h1 id="cbi">Copenhagen Burnout Test (CBI)</h1>
+  <div>
+    <PortalHeader :testName="'Copenhagen Burnout Inventory (CBI)'"></PortalHeader>
+    <div class="container">
 
-  <div class = "container" id = "test">
-    <h4>Choose the appropriate answer for each question based on the level defined.</h4>
-    <p class="malayHeader">Pilih jawapan bagi setiap soalan berdasarkan tahap yang dinyatakan.</p>
-    <hr>
+      <div class = "container" id = "test">
+        <h4>Choose the appropriate answer for each question based on the level defined.</h4>
+        <p class="malayHeader">Pilih jawapan bagi setiap soalan berdasarkan tahap yang dinyatakan.</p>
+        <hr>
 
-    <div class="scale">
-      <div class = "r">
-        <p id = "num">1</p>
-        <p class="indicator">Always / Very High Degree<br><span class="malay">Sentiasa / Tahap yang Sangat Tinggi</span></p>
+        <div class="scale">
+          <div class = "r">
+            <p id = "num">1</p>
+            <p class="indicator">Always / Very High Degree<br><span class="malay">Sentiasa / Tahap yang Sangat Tinggi</span></p>
+          </div>
+
+          <div class = "r">
+            <p id = "num">2</p>
+            <p class="indicator">Often / High Degree<br><span class="malay">Kerap kali / Tahap tinggi</span></p>
+          </div>
+
+          <div class = "r">
+            <p id = "num">3</p>
+            <p class="indicator">Sometimes / Somewhat High<br><span class="malay">Kadang / Tahap Agak Tinggi</span></p>
+          </div>
+
+          <div class = "r">
+            <p id = "num">4</p>
+            <p class="indicator">Seldom / Low Degree<br><span class="malay">Jarang / Tahap Rendah</span></p>
+          </div>
+
+          <div class = "r">
+            <p id = "num">5</p>
+            <p class="indicator">Never / Almost Never / Very Low Degree<br><span class="malay">Tidak Pernah / Hampir Tidak Pernah / Tahap Sangat Rendah</span></p>
+          </div>
+        </div>
+
+
+        <div class = "mt-4">
+          <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+        </div>
       </div>
-
-      <div class = "r">
-        <p id = "num">2</p>
-        <p class="indicator">Often / High Degree<br><span class="malay">Kerap kali / Tahap tinggi</span></p>
-      </div>
-
-      <div class = "r">
-        <p id = "num">3</p>
-        <p class="indicator">Sometimes / Somewhat High<br><span class="malay">Kadang / Tahap Agak Tinggi</span></p>
-      </div>
-
-      <div class = "r">
-        <p id = "num">4</p>
-        <p class="indicator">Seldom / Low Degree<br><span class="malay">Jarang / Tahap Rendah</span></p>
-      </div>
-
-      <div class = "r">
-        <p id = "num">5</p>
-        <p class="indicator">Never / Almost Never / Very Low Degree<br><span class="malay">Tidak Pernah / Hampir Tidak Pernah / Tahap Sangat Rendah</span></p>
-      </div>
-    </div>
-
-
-    <div class = "mt-4">
-      <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
     </div>
   </div>
-</div>
 </template>
 
 <script>
+import PortalHeader from '../PortalHeader'
+
 export default {
+  components: {PortalHeader},
   data(){
     return{
       rangeInfo: null,
