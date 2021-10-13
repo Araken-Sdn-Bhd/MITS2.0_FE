@@ -3,7 +3,6 @@
     <h3>Request Appointment</h3>
     <hr id="reqApp">
     <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
-    <button @click="postToDB()">Request Appointment</button>
     </div>
 </template>
 
@@ -167,7 +166,7 @@ data() {
                         {
                             type: 'submit',
                             onSubmit: ()=>{
-                            this.requestAppointment()
+                            this.postToDB()
                             },
                             label: '',
                             buttonText: "Submit",
@@ -204,6 +203,7 @@ mounted(){
                     return response.data
                 })
         },
+        /*
         requestAppointment(){
 
             const edittedIc = this.model.nric.replace(/-/g, '');
@@ -227,7 +227,7 @@ mounted(){
             .then((response)=>{
               return response.data
             });
-        },
+        },*/
         redirectToPrevious(){
             this.$router.back()
         }

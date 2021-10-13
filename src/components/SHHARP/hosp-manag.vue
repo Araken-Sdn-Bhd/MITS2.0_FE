@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div v-show="showNav">
       <b-navbar toggleable="lg" type="light" class="nav-bg-colour">
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -19,8 +19,7 @@
 
     <div class="container">
       <div class = "mt-4">
-          <vue-form-generator :schema="schema" :model="model" :options="formOptions" id="my-node"></vue-form-generator>
-          <br><p>{{model}}</p>
+        <vue-form-generator :schema="schema" :model="model" :options="formOptions" id="my-node"></vue-form-generator>
       </div>
     </div>
 
@@ -30,8 +29,12 @@
 <script>
 
 export default {
+props: ['hide'],
 data(){
   return{
+    showNav: true,
+    showButton: true,
+    disable: false,
     model: {
       referral: '',
       referralSpecify: '',
@@ -79,6 +82,9 @@ data(){
                       label: "name"
                     },
                     styleClasses: ["col-12 col-md-6", "mb-0"],
+                    disabled:()=>{
+                      return this.disable
+                    },
                   },
                   {
                         type: "input",
@@ -91,7 +97,10 @@ data(){
                         styleClasses: ["col-12 col-md-6", "mb-0"],
                         visible: function(model) {
                           return model && model.referral.value == 99;
-                        }
+                        },
+                        disabled:()=>{
+                          return this.disable
+                        },
                   },
                 ]
             },
@@ -121,6 +130,9 @@ data(){
                       {name: "Police", value: 4},
                       {name: "Others (Specify)", value: 99}
                     ],
+                    disabled:()=>{
+                      return this.disable
+                    },
                   },
                   {
                         type: "input",
@@ -133,7 +145,10 @@ data(){
                         styleClasses: ["col-12 col-md-6", "mb-0"],
                         visible: function(model) {
                           return model && model.arrivalMode.value == 99;
-                        }
+                        },
+                        disabled:()=>{
+                          return this.disable
+                        },
                   },
                 ]
             },
@@ -153,7 +168,10 @@ data(){
                       required: true,
                       validator: "date",
                       format: "YYYY/MM/DD",
-                      styleClasses: ["col-12 col-md-5", "mb-0"]
+                      styleClasses: ["col-12 col-md-5", "mb-0"],
+                      disabled:()=>{
+                        return this.disable
+                      },
                   },
                   {
                       type: "input",
@@ -162,7 +180,10 @@ data(){
                       model: "firstAssessmentTime",
                       required: true,
                       validator: "required",
-                      styleClasses: ["col-12 col-md-5", "mb-0"]
+                      styleClasses: ["col-12 col-md-5", "mb-0"],
+                      disabled:()=>{
+                        return this.disable
+                      },
                   },
                 ]
             },
@@ -182,7 +203,10 @@ data(){
                         ],
                       required: true,
                       validator: 'required',
-                      styleClasses: ["col-12 col-md-6", "mb-0"]
+                      styleClasses: ["col-12 col-md-6", "mb-0"],
+                      disabled:()=>{
+                        return this.disable
+                      },
                   },
                   {
                         type: "input",
@@ -195,7 +219,10 @@ data(){
                         styleClasses: ["col-12 col-md-6", "mb-0"],
                         visible: function(model) {
                           return model && model.physicalConseq == 99;
-                        }
+                        },
+                        disabled:()=>{
+                          return this.disable
+                        },
                   },
                 ]
             },
@@ -212,7 +239,10 @@ data(){
                       ],
                       required: true,
                       validator: 'required',
-                      styleClasses: ["col-12 col-md-6", "mb-0"]
+                      styleClasses: ["col-12 col-md-6", "mb-0"],
+                      disabled:()=>{
+                        return this.disable
+                      },
                   },
                   {
                         type: "input",
@@ -225,7 +255,10 @@ data(){
                         styleClasses: ["col-12 col-md-6", "mb-0"],
                         visible: function(model) {
                           return model && model.admission == 1;
-                        }
+                        },
+                        disabled:()=>{
+                          return this.disable
+                        },
                   },
                 ]
             },
@@ -242,7 +275,10 @@ data(){
                         ],
                       required: true,
                       validator: 'required',
-                      styleClasses: ["col-12 col-md-6", "mb-0"]
+                      styleClasses: ["col-12 col-md-6", "mb-0"],
+                      disabled:()=>{
+                        return this.disable
+                      },
                   },
                 ]
             },
@@ -262,7 +298,10 @@ data(){
                       required: true,
                       validator: "date",
                       format: "YYYY/MM/DD",
-                      styleClasses: ["col-12 col-md-5", "mb-0"]
+                      styleClasses: ["col-12 col-md-5", "mb-0"],
+                      disabled:()=>{
+                        return this.disable
+                      },
                   },
                   {
                       type: "input",
@@ -272,7 +311,10 @@ data(){
                       min: 0,
                       required: true,
                       validator: "number",
-                      styleClasses: ["col-12 col-md-5", "mb-0"]
+                      styleClasses: ["col-12 col-md-5", "mb-0"],
+                      disabled:()=>{
+                        return this.disable
+                      },
                   },
                 ]
             },
@@ -293,6 +335,9 @@ data(){
                         validator: "string",
                         required: true,
                         styleClasses: ["col-12 col-md-5", "mb-0"],
+                        disabled:()=>{
+                          return this.disable
+                        },
                   },
                   {
                         type: "input",
@@ -303,6 +348,9 @@ data(){
                         validator: "string",
                         required: true,
                         styleClasses: ["col-12 col-md-5", "mb-0"],
+                        disabled:()=>{
+                          return this.disable
+                        },
                   },
 
                 ]
@@ -325,6 +373,9 @@ data(){
                       {name: "Others (Specify)", value: 99}
                     ],
                     styleClasses: ['col-12 col-md-6', 'mb-0'],
+                    disabled:()=>{
+                      return this.disable
+                    },
                   },
                   {
                         type: "input",
@@ -336,7 +387,10 @@ data(){
                         styleClasses: ["col-12 col-md-6", "mb-0"],
                         visible: function(model) {
                           return model && model.PSYMx.includes(99);
-                        }
+                        },
+                        disabled:()=>{
+                          return this.disable
+                        },
                   },
                 ]
             },
@@ -352,7 +406,10 @@ data(){
                         label: '',
                         buttonText: "Previous",
                         validateBeforeSubmit: false,
-                        styleClasses: 'cancelBtn'
+                        styleClasses: 'cancelBtn',
+                        visible: ()=>{
+                          return this.showButton
+                        },
                     },
                     {
                         type: 'submit',
@@ -362,6 +419,9 @@ data(){
                         label: '',
                         buttonText: "Next",
                         validateBeforeSubmit: true,
+                        visible: ()=>{
+                          return this.showButton
+                        },
                     }
                 ]
             }
@@ -405,6 +465,16 @@ data(){
     }
   },
   created(){
+    if(this.hide){
+      this.showNav = false
+    }
+    if(this.hide){
+      this.showButton = false
+    }
+    if(this.hide){
+      this.disable = true
+    }
+
     const hospitalManagement = JSON.parse(sessionStorage.getItem("hospitalManagement"))
     if (hospitalManagement){
       this.model.referral = hospitalManagement.referral,

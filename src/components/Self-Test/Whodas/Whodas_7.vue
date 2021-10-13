@@ -1,60 +1,24 @@
 <template>
-<div class="container">
-  <h1 id="whodass">World Health Organization<br>Disability Assessment Schedule 2.0 (WHODAS 2.0)</h1>
+<div>
+  <PortalHeader :testName="'World Health Organization Disability Assessment Schedule 2.0 (WHODAS 2.0)'"></PortalHeader>
 
-  <div class = "container" id = "test">
-    <h4>In the last 30 days, how much difficulty did you have in:
-        <br><span class="hBM">Sepanjang 30 hari yang lalu, berapa banyak kesukaran yang anda telah alami dalam:</span>
-    </h4>
-    <div id="subques">
-        <h5>PARTICIPATION IN SOCIETY</h5>
-    </div>
+  <div class="container">
+    <div class = "container" id = "test">
+      <Head :domain="'PARTICIPATION IN SOCIETY'" :domainBM="'PENYERTAAN DALAM MASYARAKAT'"></Head>
+      
+      <div class = "mt-4">
+        <vue-form-generator :schema="s7_schema" :model="s7_model" :options="formOptions"></vue-form-generator>
+      </div>
 
-    <div class ="row">
-      <div class="col-md">
-        <div class = "r">
-            <p id = "num">1</p>
-            <p class="indicator">None<br><span class="bm">Tiada</span></p>
-        </div>
+      <div class = "row justify-content-center" style="margin-top:100px">
+          <p class = "page">1</p>
+          <p class = "page">2</p>
+          <p class = "page">3</p>
+          <p class = "page">4</p>
+          <p class = "page">5</p>
+          <p class = "page">6</p>
+          <p class = "page pactive">7</p>
       </div>
-      <div class="col-md">
-        <div class = "r">
-            <p id = "num">2</p>
-            <p class="indicator">Mild<br><span class="bm">Ringan</span></p>
-        </div>
-      </div>
-      <div class="col-md">
-        <div class = "r">
-            <p id = "num">3</p>
-            <p class="indicator">Moderate<br><span class="bm">Sederhana</span></p>
-        </div>
-      </div>
-      <div class="col-md">
-        <div class = "r">
-            <p id = "num">4</p>
-            <p class="indicator">Severe<br><span class="bm">Teruk</span></p>
-        </div>
-      </div>
-      <div class="col-md-auto">
-        <div class = "r">
-            <p id = "num">5</p>
-            <p class="indicator">Extreme or cannot do<br><span class="bm">Melampau atau tidak dapat dilakukan</span></p>
-        </div>
-      </div>
-    </div>
-
-    <div class = "mt-4">
-      <vue-form-generator :schema="s7_schema" :model="s7_model" :options="formOptions"></vue-form-generator>
-    </div>
-
-    <div class = "row justify-content-center" style="margin-top:100px">
-        <p class = "page">1</p>
-        <p class = "page">2</p>
-        <p class = "page">3</p>
-        <p class = "page">4</p>
-        <p class = "page">5</p>
-        <p class = "page">6</p>
-        <p class = "page pactive">7</p>
     </div>
   </div>
 </div>
@@ -62,8 +26,11 @@
 
 <script>
 import assessResults from '../Whodas/function_whodas.js'
+import PortalHeader from '../PortalHeader'
+import Head from './Whodas_head'
 
 export default {
+  components: {PortalHeader, Head},
   data(){
     return{
       data: {},
@@ -85,7 +52,11 @@ export default {
           type: "radios",
           label: "<ol><li class='label-width'>How much of a problem did you have in joining in community activities(for example, festivities, religious, or other activities) in the same way as anyone else can?<span class='requiredLabel'> *</span><br><span class='bm'>Berapa banyak masalah yang anda alami dalam menyertai aktiviti-aktiviti komuniti (contohnya, perayaan, keagamaan atau aktiviti lain) dengan cara yang sama seperti orang lain?</span></li></ol>",
           model: "Q1",
-          values: [1,2,3,4,5],
+          values: [{value:0, name:1},
+                  {value:1, name:2},
+                  {value:2, name:3},
+                  {value:3, name:4},
+                  {value:4, name:5}],
           required: 'true',
           validator: 'required',
           styleClasses: 'odd-row'
@@ -95,7 +66,11 @@ export default {
           type: "radios",
           label: "<ol start = '2'><li class='label-width'>How much of a problem did you have because of barriers or hindrances around you?<span class='requiredLabel'> *</span><br><span class='bm'>Berapa banyak masalah yang anda alami disebabkan oleh halangan atau rintangan dalam dunia di sekeliling anda?</span></li></ol>",
           model: "Q2",
-          values: [1,2,3,4,5],
+          values: [{value:0, name:1},
+                  {value:1, name:2},
+                  {value:2, name:3},
+                  {value:3, name:4},
+                  {value:4, name:5}],
           required: 'true',
           validator: 'required',
           styleClasses: 'even-row'
@@ -105,7 +80,11 @@ export default {
           type: "radios",
           label: "<ol start = '3'><li class='label-width'>How much of a problem did you have living with dignity because of the attitudes and actions of others?<span class='requiredLabel'> *</span><br><span class='bm'>Berapa banyak masalah yang anda alami untuk hidup dengan maruah diri disebabkan sikap dan tindakan orang lain?</span></li></ol>",
           model: "Q3",
-          values: [1,2,3,4,5],
+          values: [{value:0, name:1},
+                  {value:1, name:2},
+                  {value:2, name:3},
+                  {value:3, name:4},
+                  {value:4, name:5}],
           required: 'true',
           validator: 'required',
           styleClasses: 'odd-row'
@@ -116,7 +95,11 @@ export default {
           type: "radios",
           label: "<ol start = '4'><li class='label-width'>How much time did you spend on your health condition or its consequences?<span class='requiredLabel'> *</span><br><span class='bm'>Berapa banyak anda telah dipengaruhi secara emosi oleh keadaan kesihatan anda?</span></li></ol>",
           model: "Q4",
-          values: [1,2,3,4,5],
+          values: [{value:0, name:1},
+                  {value:1, name:2},
+                  {value:2, name:3},
+                  {value:3, name:4},
+                  {value:4, name:5}],
           required: 'true',
           validator: 'required',
           styleClasses: 'even-row'
@@ -126,7 +109,11 @@ export default {
           type: "radios",
           label: "<ol start = '5'><li class='label-width'>How much have you been emotionally affected by your health condition?<span class='requiredLabel'> *</span><br><span class='bm'>Berapa banyak anda telah dipengaruhi secara emosi oleh keadaan kesihatan anda?</span></li></ol>",
           model: "Q5",
-          values: [1,2,3,4,5],
+          values: [{value:0, name:1},
+                  {value:1, name:2},
+                  {value:2, name:3},
+                  {value:3, name:4},
+                  {value:4, name:5}],
           required: 'true',
           validator: 'required',
           styleClasses: 'odd-row'
@@ -137,7 +124,11 @@ export default {
           type: "radios",
           label: "<ol start = '6'><li class='label-width'>How much has your health been a drain on the financial resources of you or your family?<span class='requiredLabel'> *</span><br><span class='bm'>Berapa banyak sumber kewangan anda atau keluarga anda telah dihabiskan disebabkan kedaan kesihatan anda?</span></li></ol>",
           model: "Q6",
-          values: [1,2,3,4,5],
+          values: [{value:0, name:1},
+                  {value:1, name:2},
+                  {value:2, name:3},
+                  {value:3, name:4},
+                  {value:4, name:5}],
           required: 'true',
           validator: 'required',
           styleClasses: 'even-row'
@@ -147,7 +138,11 @@ export default {
           type: "radios",
           label: "<ol start = '7'><li class='label-width'>How much of a problem did your family have because of your health problems?<span class='requiredLabel'> *</span><br><span class='bm'>Berapa banyak masalah yang dialami keluarga anda disebabkan masalah-masalah kesihatan anda?</span></li></ol>",
           model: "Q7",
-          values: [1,2,3,4,5],
+          values: [{value:0, name:1},
+                  {value:1, name:2},
+                  {value:2, name:3},
+                  {value:3, name:4},
+                  {value:4, name:5}],
           required: 'true',
           validator: 'required',
           styleClasses: 'odd-row'
@@ -158,7 +153,11 @@ export default {
           type: "radios",
           label: "<ol start = '8'><li class='label-width'>How much of a problem did you have in doing things by yourself for relaxation or pleasure?<span class='requiredLabel'> *</span><br><span class='bm'>Berapa banyak masalah yang anda telah alami dalam melakukan perkara-perkara secara sendiri untuk beristirehat atau berseronok?</span></li></ol>",
           model: "Q8",
-          values: [1,2,3,4,5],
+          values: [{value:0, name:1},
+                  {value:1, name:2},
+                  {value:2, name:3},
+                  {value:3, name:4},
+                  {value:4, name:5}],
           required: 'true',
           validator: 'required',
           styleClasses: 'even-row'
@@ -213,7 +212,7 @@ export default {
       const response = await this.$axios.get(url);
       this.info = response.data;
 
-      assessResults(this.s7_model, this.info, [30,31,32,33,34], "s7", "PARTICIPATION IN SOCIETY", 40)
+      assessResults(this.s7_model, this.info, [30,31,32,33,34], "s7", 32)
 
       var s1 = JSON.parse(sessionStorage.getItem("4_s1"))
       var s2 = JSON.parse(sessionStorage.getItem("4_s2"))
@@ -237,72 +236,12 @@ export default {
 </script>
 
 <style>
-#whodass{
-  text-align: center;
-  font-weight: bold;
-  margin-bottom: 50px;
-}
-
-#subques{
-    background-color: rgb(146, 145, 145);
-    padding: 20px 20px 10px 20px;
-    margin-bottom: 30px;
-    margin-top: 30px;
-}
-
-h4 {
-  text-align: center;
-}
-
-h5{
-    color: white;
-    font-weight: bold;
-    text-align: center;
-}
-
-hr {
-  margin: 40px 0px 40px 0px;
-}
-
-#num {
-  margin-right: 20px;
-  margin-left: 10px;
-  text-align: center;
-  padding: 6px 12px;
-  background: #eee;
-  border-radius: 20px;
-  border-color: grey;
-  font-size: 12px;
-  letter-spacing: 1px;
-  font-weight: bold;
-  color: #777;
-
-}
 #test {
   box-shadow: 0px 10px 15px #6b6b6b9c;
   padding: 40px 40px 40px 40px;
   border-radius: 20px;
   margin-bottom: 50px;
 }
-.r{
-  display: inline-flex;
-  width: 100%;
-  align-items: center;
-}
-.indicator{
-  margin: 10px 10px 0px 0px;
-}
-.hBM{
-  font-style: italic;
-  font-size: 20px;
-  color: dimgrey;
-}
-.bm{
-  font-style: italic;
-  font-size: small;
-  color: dimgrey;
-}
-
 .page{
   text-align: center;
   padding: 6px 12px;
@@ -320,7 +259,6 @@ hr {
   background:#337ab7;
   color: white;
 }
-
 .label-width{
   width: 650px;
 }

@@ -1,5 +1,7 @@
 <template>
 <div>
+    <PortalHeader :testName="'Patient Health Questionnaire (PHQ-9)'"></PortalHeader>
+
     <div ref="document">
         <div class="container" id="title-print">
             <div class="row" style="margin-bottom: 30px">
@@ -7,6 +9,7 @@
                 </div>
                 <div class="col-md">
                     <h3>DIAGNOSIS</h3>
+                    <p class="bm">DIAGNOSIS</p>
                 </div>
                 <div class="col-md">
                     <b-button  id="print" @click="exportToPDF"><b-icon icon="printer" aria-hidden="true"></b-icon> Print</b-button>
@@ -19,11 +22,13 @@
                     <div id = "scoreBox">
                         <p id = "score">{{data.score}}</p>
                         <h5>SCORE</h5>
+                        <p class="bm white">SKOR</p>
                     </div>
                 </div>
                 <div class = "col">
                     <div id = "diagBox" v-bind:style="{ 'background-color': data.colour }">
-                        <h1>{{data.level}}</h1>
+                        <h1 id="level">{{data.level}}</h1>
+                        <p class="hBM white">Sederhana Teruk</p>
                     </div>
                     <div class="progress" id = "scales">
                         <div class="progress-bar" id = "empty" role="progressbar" v-bind:style="{width: (((data.score-0.5)/27)*100)+'%'}" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
@@ -34,33 +39,75 @@
                         <div class="progress-bar" id = "mild" role="progressbar" v-bind:style="{width: (((info[1].range_max_value-info[1].range_min_value+1)/28)*100)+'%'}" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                         <div class="progress-bar" id = "moderate" role="progressbar" v-bind:style="{width: (((info[2].range_max_value-info[2].range_min_value+1)/28)*100)+'%'}" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                         <div class="progress-bar" id = "modSevere" role="progressbar" v-bind:style="{width: (((info[3].range_max_value-info[3].range_min_value+1)/28)*100)+'%'}" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                        <div class="progress-bar" id = "Severe" role="progressbar" v-bind:style="{width: (((info[4].range_max_value-info[4].range_min_value+1)/28)*100)+'%'}" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <div>
-                        <div class = "meterText" v-bind:style="{width: (((info[0].range_max_value-info[0].range_min_value+1)/28)*100)+'%'}">
-                            {{info[0].range_label}}
-                        </div>
-                        <div class = "meterText" v-bind:style="{width: (((info[1].range_max_value-info[1].range_min_value+1)/28)*100)+'%'}">
-                            {{info[1].range_label}}
-                        </div>
-                        <div class = "meterText" v-bind:style="{width: (((info[2].range_max_value-info[2].range_min_value+1)/28)*100)+'%'}">
-                            {{info[2].range_label}}
-                        </div>
-                        <div class = "meterText" v-bind:style="{width: (((info[3].range_max_value-info[3].range_min_value+1)/28)*100)+'%'}">
-                            {{info[3].range_label}}
-                        </div>
-                        <div class = "meterText" v-bind:style="{width: (((info[4].range_max_value-info[4].range_min_value+1)/28)*100)+'%'}" >
-                            {{info[4].range_label}}
-                        </div>
+                        <div class="progress-bar" id = "severe" role="progressbar" v-bind:style="{width: (((info[4].range_max_value-info[4].range_min_value+1)/28)*100)+'%'}" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
             </div>
-            <div class = "row mt-5">
+            <div class ="row justify-content-between" id="labelLegend">
+                <div class="col-md-auto">
+                    <div class = "labelRound">
+                        <p class = "num" id="minimal"></p>
+                        <p>{{info[0].range_label}}<br><span class="bm">Minimum</span></p>
+                    </div>
+                </div>
+                <div class="col-md-auto">
+                    <div class = "labelRound">
+                        <p class = "num" id="mild"></p>
+                        <p>{{info[1].range_label}}<br><span class="bm">Ringan</span></p>
+                    </div>
+                </div>
+                <div class="col-md-auto">
+                    <div class = "labelRound">
+                        <p class = "num" id="moderate"></p>
+                        <p>{{info[2].range_label}}<br><span class="bm">Sederhana</span></p>
+                    </div>
+                </div>
+                <div class="col-md-auto">
+                    <div class = "labelRound">
+                        <p class = "num" id="modSevere"></p>
+                        <p>{{info[3].range_label}}<br><span class="bm">Sederhana Teruk</span></p>
+                    </div>
+                </div>
+                <div class="col-md-auto">
+                    <div class = "labelRound">
+                        <p class = "num" id="severe"></p>
+                        <p>{{info[4].range_label}}<br><span class="bm">Teruk</span></p>
+                    </div>
+                </div>
+            </div>
+                <!--<div class="col-md-auto">
+                    <table id="labelLegend" class="table table-sm table-hover">
+                        <tbody>
+                            <tr>
+                                <td id = "minimal"></td>
+                                <td>{{info[0].range_label}}<br><span class="bm">Minimum</span></td>
+                            </tr>
+                            <tr>
+                                <td id = "mild"></td>
+                                <td>{{info[1].range_label}}<br><span class="bm">Ringan</span></td>
+                            </tr>
+                            <tr>
+                                <td id = "moderate"></td>
+                                <td>{{info[2].range_label}}<br><span class="bm">Sederhana</span></td>
+                            </tr>
+                            <tr>
+                                <td id = "modSevere"></td>
+                                <td>{{info[3].range_label}}<br><span class="bm">Sederhana Teruk</span></td>
+                            </tr>
+                            <tr>
+                                <td id = "severe"></td>
+                                <td>{{info[4].range_label}}<br><span class="bm">Teruk</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>-->
+        <!--</div>-->
+            <div class = "my-5">
                 <p id = "diagText">{{data.desc}}</p>
             </div>
-            <div class = "mb-5">
+            <!--<div class = "mb-5">
                 <p id = "alertText">{{data.high}}</p>
-            </div>
+            </div>-->
         </div>
         <div v-if="showTimestamp" class="container d-flex flex-row-reverse"><p class="font-italic">{{this.timestamp}}</p></div>
         </div>
@@ -73,8 +120,10 @@
 
 <script>
 import html2pdf from 'html2pdf.js'
+import PortalHeader from '../PortalHeader'
 
 export default {
+    components: {PortalHeader},
     data(){
         return{
             data : {},
@@ -118,7 +167,6 @@ h1{
     text-align: center;
     font-weight: bold;
     color: white;
-    padding: 45px 30px 45px 30px;
 }
 
 h3 {
@@ -130,6 +178,9 @@ h5{
     text-align: center;
     font-weight: bold;
     color: white;
+}
+p{
+    margin-bottom: 0;
 }
 
 #score{
@@ -152,14 +203,19 @@ h5{
     background-color: rgb(105, 105, 105);
     border-radius: 10px;
     line-height: 1;
-    padding: 30px 40px 30px 40px
+    padding: 30px 40px 40px 40px
 }
 
 #diagBox{
     background-color: #CDEE4A;
     border-radius: 10px;
-    margin-bottom: 0px
+    margin-bottom: 0px;
+    padding: 45px 20px 45px 20px;
 }
+#level{
+    margin-bottom: 0;
+}
+
 
 /* Score meter */
 #empty {
@@ -178,14 +234,14 @@ h5{
 #arrow {
 	width: 0;
 	height: 0;
-	border-left: 10px solid transparent;
-	border-right: 10px solid transparent;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
 	border-bottom: 16px solid #CDEE4A;
     background-color: transparent;
 }
 
 #meter{
-    height: 25px;
+    height: 20px;
     border-radius: 20px;
 }
 
@@ -201,8 +257,6 @@ h5{
 
 #minimal{
     background-color: #CDEE4A;
-    text-align: start;
-    padding-left: 10px;
 }
 
 #mild{
@@ -217,10 +271,14 @@ h5{
     background-color: #EE9B4A;
 }
 
-#Severe{
+#severe{
     background-color: #EE5D4A;
-    text-align: end;
-    padding-right: 10px;
+}
+
+#labelLegend{
+    margin-top: 15px;
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 #diagText{
@@ -259,6 +317,32 @@ h5{
     font-size: 14px;
     font-weight: 400;
 }
+.bm{
+  font-style: italic;
+  font-size: small;
+  color: dimgrey;
+  text-align: center;
+}
+.hBM{
+  font-style: italic;
+  font-size: 20px;
+  color: dimgrey;
+  text-align: center;
+}
+.white{
+    color: white;
+}
+.num {
+  margin-right: 20px;
+  padding: 10px 15px;
+  background: #eee;
+  border-radius: 5px;
+}
+.labelRound{
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+}
 
 @media print{
     #buttons{
@@ -269,24 +353,34 @@ h5{
     }
 }
 
-@media (max-width: 766px) {
+@media (max-width: 1200px) {
     #test {
-    padding: 20px 20px 50px 20px;
-    border-radius: 20px;
-    margin-bottom: 50px;
-    width: 90%
+        padding: 20px 20px 50px 20px;
+        border-radius: 20px;
+        margin-bottom: 50px;
+        width: 90%
+    }
+    #scoreBox{
+    margin-bottom: 15px;
     }
     #diagBox{
-    background-color: #CDEE4A;
-    border-radius: 10px;
     margin-bottom: 0px;
-    margin-top: 20px
     }
     .meterText{
     font-size: 10px;
     margin-top: 5px;
     line-height: 1.2;
     }
+    #level{
+        font-size: 40px;
+    }
+    #meter{
+        height: 15px;
+    }
+    #labelLegend{
+        margin-top: 15px;
+    }
+}
 
 @media (max-width: 472px){
     #score{
@@ -296,8 +390,14 @@ h5{
     margin: 0px;
     color: white;
     }
-}
-
-
+    #level{
+        font-size: 30px;
+    }
+    #meter{
+        height: 15px;
+    }
+    #labelLegend{
+        margin-top: 15px;
+    }
 }
 </style>
