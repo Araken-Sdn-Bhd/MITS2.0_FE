@@ -48,7 +48,7 @@
                   </table>
             </div>
         </div>
-        
+
         <div class="row  mt-3 mb-3 mx-1 align-items-center justify-content-center">
           <div class="col">
             <p :id="text">{{ desc }}</p>
@@ -133,7 +133,7 @@ h3{
 	border-left: 10px solid transparent;
 	border-right: 10px solid transparent;
 	border-bottom: 16px solid #CDEE4A;
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #meter{
@@ -142,7 +142,6 @@ h3{
     margin-left: 2%;
     margin-right: 2%;
 }
-
 .meterText{
     float:left;
     text-align: center;
@@ -156,25 +155,24 @@ h3{
 }
 
 #normal{
-    background-color: #CDEE4A;
+    background-color: #CDEE4A !important;
     text-align: start;
     padding-left: 10px;
 }
-
 #mild{
-    background-color: #EEE84A;
+    background-color: #EEE84A !important;
 }
 
 #moderate{
-    background-color: #EED14A;
+    background-color: #EED14A !important;
 }
 
 #high{
-    background-color: #EE9B4A;
+    background-color: #EE9B4A !important;
 }
 
 #Severe{
-    background-color: #EE5D4A;
+    background-color: #EE5D4A !important;
     text-align: end;
     padding-right: 10px;
 }
@@ -227,3 +225,4 @@ h3{
     }
 }
 </style>
+

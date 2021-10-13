@@ -19,9 +19,7 @@
 
     <div class="container">
       <div class = "mt-4">
-          <form disabled>
-            <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
-          </form>
+        <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
       </div>
     </div>
 

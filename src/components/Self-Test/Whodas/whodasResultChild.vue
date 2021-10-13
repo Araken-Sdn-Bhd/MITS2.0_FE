@@ -1,20 +1,33 @@
 <template>
 <div>
     <div class="container test">
-        <h3 id ="domain">{{domain}}</h3>
-        <div class = "row">
-            <div class = "col-md-auto">
-                <div class = "scoreBox">
-                    <p class = "score">{{domain_scr}}</p>
-                    <h5 class="scoretxt">DOMAIN<br>SCORE</h5>
-                </div>
-            </div>
+        <div id ="domain">
+            <h4>{{domain}}</h4>
+            <div class="bm">{{domainBM}}</div>
+        </div>
+        <div class = "row justify-content-between">
             <div class = "col-md-auto">
                 <div class = "scoreBox average">
                     <p class = "score avg">{{avg_domain_scr}}</p>
-                    <h5 class="scoretxt avg">AVERAGE<br>DOMAIN SCORE</h5>
+                    <h5 class="scoretxt avg">AVERAGE DOMAIN SCORE</h5>
+                    <div class="bm">PURATA SKOR DOMAIN</div>
                 </div>
             </div>
+            <div class = "col-md">
+                <div class = "scoreBox">
+                    <p class = "score">{{domain_scr}}</p>
+                    <h5 class="scoretxt">DOMAIN SCORE</h5>
+                    <div class="bm white">SKOR DOMAIN</div>
+                </div>
+            </div>
+            <div class = "col-md-auto">
+                <div class = "scoreBox percentage">
+                    <p class = "score">{{((domain_scr/max_score)*100).toFixed(1)}}%</p>
+                    <h5 class="scoretxt">DOMAIN PERCENTAGE</h5>
+                    <div class="bm white">PERATUSAN DOMAIN</div>
+                </div>
+            </div>
+            <!--
             <div class = "col">
                 <div id = "diagBox" v-bind:style="{ 'background-color': colour }">
                     <h1>{{level}}</h1>
@@ -50,6 +63,32 @@
                     </div>
                 </div>
             </div>
+            <div class="col-xl-auto mt-2">
+                <table class="table table-sm table-hover">
+                    <tbody>
+                        <tr>
+                            <td id = "none"></td>
+                            <td>{{range.data[index[0]].range_label}}</td>
+                        </tr>
+                        <tr>
+                            <td id = "mild"></td>
+                            <td>{{range.data[index[1]].range_label}}</td>
+                        </tr>
+                        <tr>
+                            <td id = "moderate"></td>
+                            <td>{{range.data[index[2]].range_label}}</td>
+                        </tr>
+                        <tr>
+                            <td id = "severe"></td>
+                            <td>{{range.data[index[3]].range_label}}</td>
+                        </tr>
+                        <tr>
+                            <td id = "extreme"></td>
+                            <td>{{range.data[index[4]].range_label}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>-->
         </div>
     </div>
 </div>
@@ -57,7 +96,7 @@
 
 <script>
 export default {
-  props: ['domain', 'domain_scr', 'avg_domain_scr', 'level', 'colour', 'max_score', 'range', 'index'],
+  props: ['domain', 'domainBM', 'domain_scr', 'avg_domain_scr', 'level', 'colour', 'max_score', 'range', 'index'],
   data(){
       return {
       }
@@ -78,7 +117,10 @@ h1{
     font-weight: bold;
     color: white;
 }
-
+h4{
+    text-align: center;
+    font-weight: bold;
+}
 h3 {
     text-align: center;
     font-weight: bold;
@@ -120,18 +162,21 @@ h5{
 }
 
 .scoreBox{
-    background-color: rgb(105, 105, 105);
+    background-color: #158470;
     border-radius: 10px;
     line-height: 1;
     padding: 20px 30px 20px 30px;
-    border: solid 3px rgb(105, 105, 105);
+    border: solid 3px #158470;
 }
 
 .average{
     background-color: rgb(255, 255, 255);
     border: solid 3px rgb(105, 105, 105);
 }
-
+.percentage{
+    background-color: #EC7557;
+    border: solid 3px #EC7557;
+}
 #diagBox{
     background-color: #CDEE4A;
     border-radius: 10px;
@@ -156,8 +201,8 @@ h5{
 #arrow {
 	width: 0;
 	height: 0;
-	border-left: 10px solid transparent;
-	border-right: 10px solid transparent;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
 	border-bottom: 15px solid #CDEE4A;
     background-color: transparent;
 }
@@ -237,19 +282,31 @@ h5{
     font-size: 14px;
     font-weight: 400;
 }
+.hBM{
+  font-style: italic;
+  font-size: 20px;
+  color: dimgrey;
+  text-align: center;
+}
+.bm{
+  font-style: italic;
+  font-size: small;
+  color: dimgrey;
+  text-align: center;
+}
+.white{
+    color: white;
+}
 
 @media (max-width: 1012px) {
     .test{
-        padding: 20px 10px;
+        padding: 20px 20px;
     }
     #domain{
         margin-bottom: 20px;
     }
     .score{
         font-size: 50px;
-    }
-    .scoretxt{
-        font-size: 10px;
     }
     .scoreBox{
         padding: 10px;
@@ -281,9 +338,6 @@ h5{
     }
     .score{
         font-size: 50px;
-    }
-    .scoretxt{
-        font-size: 10px;
     }
     .scoreBox{
         padding: 10px;
