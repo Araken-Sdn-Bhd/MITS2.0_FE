@@ -6,7 +6,7 @@
     <h4>Please read each statement and select a number 0, 1 , 2 or 3 that indicates how much the statement applied to you over the past week.</h4>
     <h6>There are no right or wrong answers. Do not spend too much time on any statement.</h6><br>
     <p class="malayHeader">Sila baca setiap kenyataan di bawah dan pilih jawapan anda berdasarkan jawapan 0, 1, 2 atau 3 bagi menggambarkan keadaan anda sepanjang minggu yang lalu.
-      Tiada jawapan yang betul atau salah. Jangan mengambil masa yang terlalu lama untuk mana-mana kenyataan.</p>
+      Tiada .jawapan yang betul atau salah.. Jangan mengambil masa yang terlalu lama untuk mana-mana kenyataan.</p>
     <hr>
 
     <div class="scale">
