@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div v-show="showNav">
       <b-navbar toggleable="lg" type="light" class="nav-bg-colour">
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -19,7 +19,7 @@
 
     <div class="container">
       <div class = "mt-4 d-flex justify-content-center">
-          <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+        <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
       </div>
     </div>
 
@@ -29,8 +29,12 @@
 <script>
 
 export default {
-data(){
+  props: ['hide'],
+  data(){
     return{
+      showNav: true,
+      showButton: true,
+      disable: false,
       model: {
         q1: '',
         q2: '',
@@ -51,7 +55,10 @@ data(){
             ],
             required: true,
             validator: 'required',
-            styleClasses: ['odd-row', 'mb-0']
+            styleClasses: ['odd-row', 'mb-0'],
+            disabled:()=>{
+              return this.disable
+            },
           },
           {
             type: "radios",
@@ -63,7 +70,10 @@ data(){
             ],
             required: true,
             validator: 'required',
-            styleClasses: ['even-row', 'mb-0']
+            styleClasses: ['even-row', 'mb-0'],
+            disabled:()=>{
+              return this.disable
+            },
           },
           {
             type: "radios",
@@ -75,7 +85,10 @@ data(){
             ],
             required: true,
             validator: 'required',
-            styleClasses: ['odd-row', 'mb-0']
+            styleClasses: ['odd-row', 'mb-0'],
+            disabled:()=>{
+              return this.disable
+            },
           },
           {
             type: "radios",
@@ -87,7 +100,10 @@ data(){
             ],
             required: true,
             validator: 'required',
-            styleClasses: ['even-row', 'mb-0']
+            styleClasses: ['even-row', 'mb-0'],
+            disabled:()=>{
+              return this.disable
+            },
           },
           {
             type: "radios",
@@ -99,7 +115,10 @@ data(){
             ],
             required: true,
             validator: 'required',
-            styleClasses: ['odd-row', 'mb-0']
+            styleClasses: ['odd-row', 'mb-0'],
+            disabled:()=>{
+              return this.disable
+            },
           },
           {
             type: "radios",
@@ -111,7 +130,10 @@ data(){
             ],
             required: true,
             validator: 'required',
-            styleClasses: ['even-row', 'mb-0']
+            styleClasses: ['even-row', 'mb-0'],
+            disabled:()=>{
+              return this.disable
+            },
           }
         ],
         groups: [
@@ -127,7 +149,10 @@ data(){
                         label: '',
                         buttonText: "Previous",
                         validateBeforeSubmit: false,
-                        styleClasses: 'cancelBtn'
+                        styleClasses: 'cancelBtn',
+                        visible: ()=>{
+                          return this.showButton
+                        },
                     },
                     {
                       type: 'submit',
@@ -137,6 +162,9 @@ data(){
                       label: '',
                       buttonText: "Next",
                       validateBeforeSubmit: true,
+                      visible: ()=>{
+                        return this.showButton
+                      },
                     }
                 ]
             }
@@ -169,6 +197,16 @@ data(){
     }
   },
   created(){
+    if(this.hide){
+      this.showNav = false
+    }
+    if(this.hide){
+      this.showButton = false
+    }
+    if(this.hide){
+      this.disable = true
+    }
+
     const protectiveFactors = JSON.parse(sessionStorage.getItem("protectiveFactors"))
     if(protectiveFactors){
       this.model.q1 = protectiveFactors.q1,

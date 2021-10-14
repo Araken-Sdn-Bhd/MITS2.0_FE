@@ -1,70 +1,81 @@
 <template>
-  <div class="container">
-  <h1 id="dass">Depression, Anxiety and Stress Scale (DASS)</h1>
+  <div>
+    <PortalHeader :testName="'Depression, Anxiety and Stress Scale (DASS)'"></PortalHeader>
 
-  <div class = "container" id = "test">
-    <h4>Please read each statement and select a number 0, 1 , 2 or 3 that indicates how much the statement applied to you over the past week.</h4>
-    <h6>There are no right or wrong answers. Do not spend too much time on any statement.</h6><br>
-    <p class="malayHeader">Sila baca setiap kenyataan di bawah dan pilih jawapan anda berdasarkan jawapan 0, 1, 2 atau 3 bagi menggambarkan keadaan anda sepanjang minggu yang lalu.
-      Tiada jawapan yang betul atau salah. Jangan mengambil masa yang terlalu lama untuk mana-mana kenyataan.</p>
-    <hr>
+    <div class="container">
 
-    <div class="scale">
-      <div class = "r">
-        <p id = "num">0</p>
-        <p class="indicator">Did not apply to me at all<br><span class="malay">Tidak langsung menggambarkan keadaan saya</span></p>
+      <div class = "container" id = "test">
+        <h4>Please read each statement and select a number 0, 1 , 2 or 3 that indicates how much the statement applied to you over the past week.</h4>
+        <h6>There are no right or wrong answers. Do not spend too much time on any statement.</h6><br>
+        <p class="malayHeader">Sila baca setiap kenyataan di bawah dan pilih jawapan anda berdasarkan jawapan 0, 1, 2 atau 3 bagi menggambarkan keadaan anda sepanjang minggu yang lalu.
+          Tiada jawapan yang betul atau salah. Jangan mengambil masa yang terlalu lama untuk mana-mana kenyataan.</p>
+        <hr>
+
+        <div class="scale">
+          <div class = "r">
+            <p id = "num">0</p>
+            <p class="indicator">Did not apply to me at all<br><span class="malay">Tidak langsung menggambarkan keadaan saya</span></p>
+          </div>
+
+          <div class = "r">
+            <p id = "num">1</p>
+            <p class="indicator">Applied to me to some degree, or some of the time<br><span class="malay">Sedikit atau jarang-jarang menggambarkan keadaan saya</span></p>
+          </div>
+
+          <div class = "r">
+            <p id = "num">2</p>
+            <p class="indicator">Applied to me to a considerable degree, or a good part of time<br><span class="malay">Banyak atau kerapkali menggambarkan keadaan saya</span></p>
+          </div>
+
+          <div class = "r">
+            <p id = "num">3</p>
+            <p class="indicator">Applied to me very much, or most of the time<br><span class="malay">Sangat banyak atau sangat kerap menggambarkan keadaan saya</span></p>
+          </div>
+        </div>
+
+
+        <div class = "mt-4">
+          <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+        </div>
       </div>
-
-      <div class = "r">
-        <p id = "num">1</p>
-        <p class="indicator">Applied to me to some degree, or some of the time<br><span class="malay">Sedikit atau jarang-jarang menggambarkan keadaan saya</span></p>
-      </div>
-
-      <div class = "r">
-        <p id = "num">2</p>
-        <p class="indicator">Applied to me to a considerable degree, or a good part of time<br><span class="malay">Banyak atau kerapkali menggambarkan keadaan saya</span></p>
-      </div>
-
-      <div class = "r">
-        <p id = "num">3</p>
-        <p class="indicator">Applied to me very much, or most of the time<br><span class="malay">Sangat banyak atau sangat kerap menggambarkan keadaan saya</span></p>
-      </div>
-    </div>
-
-
-    <div class = "mt-4">
-      <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
     </div>
   </div>
-</div>
 </template>
 
 <script>
+import PortalHeader from '../PortalHeader'
+
 export default {
+  components: {PortalHeader},
   data(){
     return{
-
       depressionScore: 0,
       anxietyScore: 0,
       stressScore: 0,
       depressionLevel: '',
       anxietyLevel: '',
       stressLevel: '',
+      depressionLevelBm: '',
+      anxietyLevelBm: '',
+      stressLevelBm: '',
       depressionDesc: '',
       anxietyDesc: '',
       stressDesc: '',
+      depressionDescBm: '',
+      anxietyDescBm: '',
+      stressDescBm: '',
       depressionColour: '',
       anxietyColour: '',
       stressColour: '',
-      depressionText: '',
-      anxietyText: '',
-      stressText: '',
       depressionWidth: [],
       anxietyWidth: [],
       stressWidth: [],
       depressionLabel: [],
       anxietyLabel: [],
       stressLabel: [],
+      depressionLabelBm: [],
+      anxietyLabelBm: [],
+      stressLabelBm: [],
 
       model: {
         depression: [],
@@ -148,7 +159,7 @@ export default {
           },
           {
             type: "radios",
-            label: "<ol start = '9'><li class='label-width'>I was worried about situations in which might panic and make a fool of myself.<span class='requiredLabel'> *</span><br><span class='malay'>Saya bimbang keadaan di mana saya mungkin menjadi panik dan melakukan perkara yang <br>membodohkan diri sendiri.</span></li></ol>",
+            label: "<ol start = '9'><li class='label-width'>I was worried about situations in which I might panic and make a fool of myself.<span class='requiredLabel'> *</span><br><span class='malay'>Saya bimbang keadaan di mana saya mungkin menjadi panik dan melakukan perkara yang <br>membodohkan diri sendiri.</span></li></ol>",
             model: "anxiety[3]",
             values: [0, 1, 2, 3],
             required: true,
@@ -238,7 +249,7 @@ export default {
           },
           {
             type: "radios",
-            label: "<ol start = '19'><li class='label-width'>I was aware of the action of my heart in the absence of physical exertion (eg, sense <br>of heart rate increase, heart missing a beat).<span class='requiredLabel'> *</span><br><span class='malay'>Saya sedar tindakbalas jantung saya walaupun tidak melakukan aktiviti fizikal (contohnya kadar <br>denyutan jantung bertambah, atau denyutan jantung berkurang).</span></li></ol>",
+            label: "<ol start = '19'><li class='label-width'>I was aware of the action of my heart in the absence of physical exertion (eg, sense <br>of heart rate increase, heart missing a beat).<span class='requiredLabel'> *</span><br><span class='malay'>Saya sedar tindakbalas jantung saya walaupun tidak melakukan aktiviti fizikal (contohnya kadar <br>denyutan jantung bertambah, atau denyutan jantung berkurangan).</span></li></ol>",
             model: "anxiety[5]",
             values: [0, 1, 2, 3],
             required: true,
@@ -316,28 +327,33 @@ export default {
       if(this.stressScore>=this.rangeInfo[0].range_min_value && this.stressScore<this.rangeInfo[0].range_max_value+1){
         this.stressLevel = this.rangeInfo[0].range_label
         this.stressDesc = this.rangeInfo[0].range_description
+        this.stressLevelBm = this.rangeInfo[0].range_label_bm
+        this.stressDescBm = this.rangeInfo[0].range_description_bm
         this.stressColour = '#CDEE4A'
-        this.stressText = 'diagTextNormal'
       }else if(this.stressScore>=this.rangeInfo[1].range_min_value && this.stressScore<this.rangeInfo[1].range_max_value+1){
         this.stressLevel = this.rangeInfo[1].range_label
         this.stressDesc = this.rangeInfo[1].range_description
+        this.stressLevelBm = this.rangeInfo[1].range_label_bm
+        this.stressDescBm = this.rangeInfo[1].range_description_bm
         this.stressColour = '#EEE84A'
-        this.stressText = 'diagTextNormal'
       }else if(this.stressScore>=this.rangeInfo[2].range_min_value && this.stressScore<this.rangeInfo[2].range_max_value+1){
         this.stressLevel = this.rangeInfo[2].range_label
         this.stressDesc = this.rangeInfo[2].range_description
+        this.stressLevelBm = this.rangeInfo[2].range_label_bm
+        this.stressDescBm = this.rangeInfo[2].range_description_bm
         this.stressColour = '#EED14A'
-        this.stressText = 'diagTextNormal'
       }else if(this.stressScore>=this.rangeInfo[3].range_min_value && this.stressScore<this.rangeInfo[3].range_max_value+1){
         this.stressLevel = this.rangeInfo[3].range_label
         this.stressDesc = this.rangeInfo[3].range_description
+        this.stressLevelBm = this.rangeInfo[3].range_label_bm
+        this.stressDescBm = this.rangeInfo[3].range_description_bm
         this.stressColour = '#EE9B4A'
-        this.stressText = 'diagTextWarn'
       }else{
         this.stressLevel = this.rangeInfo[4].range_label
         this.stressDesc = this.rangeInfo[4].range_description
+        this.stressLevelBm = this.rangeInfo[4].range_label_bm
+        this.stressDescBm = this.rangeInfo[4].range_description_bm
         this.stressColour = '#EE5D4A'
-        this.stressText = 'diagTextWarn'
       }
 
       this.stressWidth[0] = parseFloat((((this.rangeInfo[0].range_max_value - this.rangeInfo[0].range_min_value + 1)/22)*100).toFixed(2))
@@ -347,32 +363,38 @@ export default {
       this.stressWidth[4] = parseFloat((((this.rangeInfo[4].range_max_value - this.rangeInfo[4].range_min_value + 1)/22)*100).toFixed(2))
 
       this.stressLabel = [this.rangeInfo[0].range_label, this.rangeInfo[1].range_label, this.rangeInfo[2].range_label, this.rangeInfo[3].range_label, this.rangeInfo[4].range_label]
+      this.stressLabelBm = [this.rangeInfo[0].range_label_bm, this.rangeInfo[1].range_label_bm, this.rangeInfo[2].range_label_bm, this.rangeInfo[3].range_label_bm, this.rangeInfo[4].range_label_bm]
 
       if(this.anxietyScore>=this.rangeInfo[5].range_min_value && this.anxietyScore<this.rangeInfo[5].range_max_value+1){
         this.anxietyLevel = this.rangeInfo[5].range_label
         this.anxietyDesc = this.rangeInfo[5].range_description
+        this.anxietyLevelBm = this.rangeInfo[5].range_label_bm
+        this.anxietyDescBm = this.rangeInfo[5].range_description_bm
         this.anxietyColour = '#CDEE4A'
-        this.anxietyText = 'diagTextNormal'
       }else if(this.anxietyScore>=this.rangeInfo[6].range_min_value && this.anxietyScore<this.rangeInfo[6].range_max_value+1){
         this.anxietyLevel = this.rangeInfo[6].range_label
         this.anxietyDesc = this.rangeInfo[6].range_description
+        this.anxietyLevelBm = this.rangeInfo[6].range_label_bm
+        this.anxietyDescBm = this.rangeInfo[6].range_description_bm
         this.anxietyColour = '#EEE84A'
-        this.anxietyText = 'diagTextNormal'
       }else if(this.anxietyScore>=this.rangeInfo[7].range_min_value && this.anxietyScore<this.rangeInfo[7].range_max_value+1){
         this.anxietyLevel = this.rangeInfo[7].range_label
         this.anxietyDesc = this.rangeInfo[7].range_description
+        this.anxietyLevelBm = this.rangeInfo[7].range_label_bm
+        this.anxietyDescBm = this.rangeInfo[7].range_description_bm
         this.anxietyColour = '#EED14A'
-        this.anxietyText = 'diagTextNormal'
       }else if(this.anxietyScore>=this.rangeInfo[8].range_min_value && this.anxietyScore<this.rangeInfo[8].range_max_value+1){
         this.anxietyLevel = this.rangeInfo[8].range_label
         this.anxietyDesc = this.rangeInfo[8].range_description
+        this.anxietyLevelBm = this.rangeInfo[8].range_label_bm
+        this.anxietyDescBm = this.rangeInfo[8].range_description_bm
         this.anxietyColour = '#EE9B4A'
-        this.anxietyText = 'diagTextWarn'
       }else{
         this.anxietyLevel = this.rangeInfo[9].range_label
         this.anxietyDesc = this.rangeInfo[9].range_description
+        this.anxietyLevelBm = this.rangeInfo[9].range_label_bm
+        this.anxietyDescBm = this.rangeInfo[9].range_description_bm
         this.anxietyColour = '#EE5D4A'
-        this.anxietyText = 'diagTextWarn'
       }
 
       this.anxietyWidth[0] = parseFloat((((this.rangeInfo[5].range_max_value - this.rangeInfo[5].range_min_value + 1)/22)*100).toFixed(2))
@@ -382,32 +404,38 @@ export default {
       this.anxietyWidth[4] = parseFloat((((this.rangeInfo[9].range_max_value - this.rangeInfo[9].range_min_value + 1)/22)*100).toFixed(2))
 
       this.anxietyLabel = [this.rangeInfo[5].range_label, this.rangeInfo[6].range_label, this.rangeInfo[7].range_label, this.rangeInfo[8].range_label, this.rangeInfo[9].range_label]
+      this.anxietyLabelBm = [this.rangeInfo[5].range_label_bm, this.rangeInfo[6].range_label_bm, this.rangeInfo[7].range_label_bm, this.rangeInfo[8].range_label_bm, this.rangeInfo[9].range_label_bm]
 
       if(this.depressionScore>=this.rangeInfo[10].range_min_value && this.depressionScore<this.rangeInfo[10].range_max_value+1){
         this.depressionLevel = this.rangeInfo[10].range_label
         this.depressionDesc = this.rangeInfo[10].range_description
+        this.depressionLevelBm = this.rangeInfo[10].range_label_bm
+        this.depressionDescBm = this.rangeInfo[10].range_description_bm
         this.depressionColour = '#CDEE4A'
-        this.depressionText = 'diagTextNormal'
       }else if(this.depressionScore>=this.rangeInfo[11].range_min_value && this.depressionScore<this.rangeInfo[11].range_max_value+1){
         this.depressionLevel = this.rangeInfo[11].range_label
         this.depressionDesc = this.rangeInfo[11].range_description
+        this.depressionLevelBm = this.rangeInfo[11].range_label_bm
+        this.depressionDescBm = this.rangeInfo[11].range_description_bm
         this.depressionColour = '#EEE84A'
-        this.depressionText = 'diagTextNormal'
       }else if(this.depressionScore>=this.rangeInfo[12].range_min_value && this.depressionScore<this.rangeInfo[12].range_max_value+1){
         this.depressionLevel = this.rangeInfo[12].range_label
         this.depressionDesc = this.rangeInfo[12].range_description
+        this.depressionLevelBm = this.rangeInfo[12].range_label_bm
+        this.depressionDescBm = this.rangeInfo[12].range_description_bm
         this.depressionColour = '#EED14A'
-        this.depressionText = 'diagTextNormal'
       }else if(this.depressionScore>=this.rangeInfo[13].range_min_value && this.depressionScore<this.rangeInfo[13].range_max_value+1){
         this.depressionLevel = this.rangeInfo[13].range_label
         this.depressionDesc = this.rangeInfo[13].range_description
+        this.depressionLevelBm = this.rangeInfo[13].range_label_bm
+        this.depressionDescBm = this.rangeInfo[13].range_description_bm
         this.depressionColour = '#EE9B4A'
-        this.depressionText = 'diagTextWarn'
       }else{
         this.depressionLevel = this.rangeInfo[14].range_label
         this.depressionDesc = this.rangeInfo[14].range_description
+        this.depressionLevelBm = this.rangeInfo[14].range_label_bm
+        this.depressionDescBm = this.rangeInfo[14].range_description_bm
         this.depressionColour = '#EE5D4A'
-        this.depressionText = 'diagTextWarn'
       }
 
       this.depressionWidth[0] = parseFloat((((this.rangeInfo[10].range_max_value - this.rangeInfo[10].range_min_value + 1)/22)*100).toFixed(2))
@@ -417,37 +445,47 @@ export default {
       this.depressionWidth[4] = parseFloat((((this.rangeInfo[14].range_max_value - this.rangeInfo[14].range_min_value + 1)/22)*100).toFixed(2))
 
       this.depressionLabel = [this.rangeInfo[10].range_label, this.rangeInfo[11].range_label, this.rangeInfo[12].range_label, this.rangeInfo[13].range_label, this.rangeInfo[14].range_label]
+      this.depressionLabelBm = [this.rangeInfo[10].range_label_bm, this.rangeInfo[11].range_label_bm, this.rangeInfo[12].range_label_bm, this.rangeInfo[13].range_label_bm, this.rangeInfo[14].range_label_bm]
 
       let data = {
         stress: {
           name: 'STRESS',
+          nameBm: 'TEKANAN',
           score: this.stressScore,
           level: this.stressLevel,
           desc: this.stressDesc,
+          levelBm: this.stressLevelBm,
+          descBm: this.stressDescBm,
           colour: this.stressColour,
           width: this.stressWidth,
-          text: this.stressText,
-          label: this.stressLabel
+          label: this.stressLabel,
+          labelBm: this.stressLabelBm
         },
         anxiety: {
           name: 'ANXIETY',
+          nameBm: 'KEGELISAHAN',
           score: this.anxietyScore,
           level: this.anxietyLevel,
           desc: this.anxietyDesc,
+          levelBm: this.anxietyLevelBm,
+          descBm: this.anxietyDescBm,
           colour: this.anxietyColour,
           width: this.anxietyWidth,
-          text: this.anxietyText,
-          label: this.anxietyLabel
+          label: this.anxietyLabel,
+          labelBm: this.anxietyLabelBm
         },
         depression: {
           name: 'DEPRESSION',
+          nameBm: 'KEMURUNGAN',
           score: this.depressionScore,
           level: this.depressionLevel,
           desc: this.depressionDesc,
+          levelBm: this.depressionLevelBm,
+          descBm: this.depressionDescBm,
           colour: this.depressionColour,
           width: this.depressionWidth,
-          text: this.depressionText,
-          label: this.depressionLabel
+          label: this.depressionLabel,
+          labelBm: this.depressionLabelBm
         }
       }
       sessionStorage.setItem('dassData', JSON.stringify(data))

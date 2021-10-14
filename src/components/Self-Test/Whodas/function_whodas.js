@@ -1,11 +1,11 @@
-export default function assessResults(wd_model, info, arr, name, domain, max_score){
+export default function assessResults(wd_model, info, arr, name, max_score){
     var wd_score = 0;
 
     for (let x in wd_model){
         wd_score += wd_model[x];
     }
 
-    var wd_avg_score = ((wd_score/30)*5).toFixed(1);
+    var wd_avg_score = (((wd_score/max_score)*4)+1).toFixed(1);
     var wd_colour = '';
     var wd_level = '';
 
@@ -31,8 +31,6 @@ export default function assessResults(wd_model, info, arr, name, domain, max_sco
     }
 
     let WD_data = {
-    domain : domain,
-    max_score: max_score,
     score: wd_score,
     avg_score : wd_avg_score,
     colour : wd_colour,

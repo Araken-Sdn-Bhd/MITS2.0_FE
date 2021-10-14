@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div v-show="showNav">
       <b-navbar toggleable="lg" type="light" class="nav-bg-colour">
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -20,12 +20,10 @@
     <div class="container">
       <div class = "mt-4">
         <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
-        <button id="nana">Click</button>
       </div>
 
     <!-- Modal -->
       <div>
-        <b-button v-b-modal.modal-scrollable>Preview</b-button>
 
         <b-modal id="modal-scrollable" scrollable size="lg" centered title="Scrollable Content" header-bg-variant="secondary"
          header-text-variant="light" footer-bg-variant="light" footer-text-variant="dark" body-bg-variant="light"
@@ -39,14 +37,26 @@
             <b-card class="mt-3" header="RISK FACTORS" style="min-width: 400px;" bg-variant="light" header-bg-variant="secondary" header-text-variant="light">
               <Risk :hide="true"></Risk>
             </b-card>
+
+            <b-card class="mt-3" header="PROTECTIVE FACTORS" style="min-width: 400px;" bg-variant="light" header-bg-variant="secondary" header-text-variant="light">
+              <Protective :hide="true"></Protective>
+            </b-card>
+
+            <b-card class="mt-3" header="HOSPITAL MANAGEMENT" style="min-width: 400px;" bg-variant="light" header-bg-variant="secondary" header-text-variant="light">
+              <Hospital :hide="true"></Hospital>
+            </b-card>
+
+            <b-card class="mt-3" header="SOURCE DATA PRODUCER" style="min-width: 400px;" bg-variant="light" header-bg-variant="secondary" header-text-variant="light">
+              <Source :hide="true"></Source>
+            </b-card>
           </template>
 
           <template #modal-footer="{ ok, cancel}">
-            <b-button size="sm" variant="success" @click="ok()">
-              Submit
-            </b-button>
             <b-button size="sm" variant="danger" @click="cancel()">
               Cancel
+            </b-button>
+            <b-button size="sm" variant="success" @click="ok()">
+              Submit
             </b-button>
           </template>
 
@@ -60,12 +70,18 @@
 
 <script>
 import Risk from './risk-factors'
-import HospManag from './hosp-manag.vue'
+import Protective from './protective-factors'
+import Hospital from './hosp-manag'
 
 export default {
-  components: { Risk, HospManag },
+  name: 'Source',
+  props: ['hide'],
+  components: { Risk, Protective, Hospital },
   data(){
     return{
+      showNav: true,
+      showButton: true,
+      disable: false,
       model: {
         regOffName: '',
         designation: '',
@@ -86,7 +102,10 @@ export default {
                     model: "regOffName",
                     validator: "string",
                     required: true,
-                    styleClasses: "col-12 col-md-6"
+                    styleClasses: "col-12 col-md-6",
+                    disabled:()=>{
+                      return this.disable
+                    },
                   },
                   {
                     type: "input",
@@ -95,7 +114,10 @@ export default {
                     model: "hospitalName",
                     validator: "string",
                     required: true,
-                    styleClasses: "col-12 col-md-6"
+                    styleClasses: "col-12 col-md-6",
+                    disabled:()=>{
+                      return this.disable
+                    },
                   },
                 ]
             },
@@ -109,7 +131,10 @@ export default {
                     model: "designation",
                     validator: "string",
                     required: true,
-                    styleClasses: "col-12 col-md-6"
+                    styleClasses: "col-12 col-md-6",
+                    disabled:()=>{
+                      return this.disable
+                    },
                   },
                   {
                     type: "input",
@@ -118,7 +143,10 @@ export default {
                     model: "psychiatristName",
                     validator: "string",
                     required: true,
-                    styleClasses: "col-12 col-md-6"
+                    styleClasses: "col-12 col-md-6",
+                    disabled:()=>{
+                      return this.disable
+                    },
                   },
                 ]
             },
@@ -134,7 +162,10 @@ export default {
                     required: true,
                     validator: "date",
                     format: "YYYY/MM/DD",
-                    styleClasses: "col-12 col-md-6"
+                    styleClasses: "col-12 col-md-6",
+                    disabled:()=>{
+                      return this.disable
+                    },
                   },
                   {
                     type: "input",
@@ -145,7 +176,10 @@ export default {
                     required: true,
                     validator: "date",
                     format: "YYYY/MM/DD",
-                    styleClasses: "col-12 col-md-6"
+                    styleClasses: "col-12 col-md-6",
+                    disabled:()=>{
+                      return this.disable
+                    },
                   },
                 ]
             },
@@ -161,7 +195,10 @@ export default {
                         label: '',
                         buttonText: "Previous",
                         validateBeforeSubmit: false,
-                        styleClasses: 'cancelBtn'
+                        styleClasses: 'cancelBtn',
+                        visible: ()=>{
+                          return this.showButton
+                        },
                     },
                     {
                       id: "smt",
@@ -170,8 +207,11 @@ export default {
                         this.submitForm()
                       },
                       label: '',
-                      buttonText: "Submit",
-                      validateBeforeSubmit: true
+                      buttonText: "Preview",
+                      validateBeforeSubmit: true,
+                      visible: ()=>{
+                          return this.showButton
+                        },
                     }
                 ]
             }
@@ -200,15 +240,20 @@ export default {
       }
       sessionStorage.setItem('sourceData', JSON.stringify(sourceData))
 
-    },
-    test(){
-      // console.log("huhuhuh");
-      // const elem = this.schema.groups[3].fields[1].id;
-      // elem.$el.click()
-      this.schema.groups[3].fields[1].click()
+      this.$bvModal.show("modal-scrollable")
     }
   },
   created(){
+    if(this.hide){
+      this.showNav = false
+    }
+    if(this.hide){
+      this.showButton = false
+    }
+    if(this.hide){
+      this.disable = true
+    }
+
     const sourceData = JSON.parse(sessionStorage.getItem("sourceData"))
     if(sourceData){
       this.model.regOffName = sourceData.officer,

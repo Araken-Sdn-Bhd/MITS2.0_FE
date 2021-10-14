@@ -1,48 +1,53 @@
 <template>
-<div class="container">
-  <h1 id="phq">Patient Health Questionnaire (PHQ-9)</h1>
+<div>
+  <PortalHeader :testName="'Patient Health Questionnaire (PHQ-9)'"></PortalHeader>
+  
+  <div class="container">
+    <div class = "container" id = "test">
+      <h4>Over the last 2 weeks, how often have you been bothered by any of the following problems?
+          <br><span class="hBM">Dalam tempoh 2 minggu yang lepas, berapa kerapkali anda terganggu oleh masalah  berikut?</span>
+      </h4>
+      <hr>
+      <div class ="row justify-content-between">
+        <div class="col-md-auto">
+          <div class = "r">
+              <p id = "num">0</p>
+              <p class="indicator">Not at all<br><span class="bm">Tidak pernah sama sekali</span></p>
+          </div>
+        </div>
+        <div class="col-md-auto">
+          <div class = "r">
+              <p id = "num">1</p>
+              <p class="indicator">Several days<br><span class="bm">Beberapa hari</span></p>
+          </div>
+        </div>
+        <div class="col-md-auto">
+          <div class = "r">
+              <p id = "num">2</p>
+              <p class="indicator">More than half the days<br><span class="bm">Lebih dari seminggu</span></p>
+          </div>
+        </div>
+        <div class="col-md-auto">
+          <div class = "r">
+              <p id = "num">3</p>
+              <p class="indicator">Nearly everyday<br><span class="bm">Hampir setiap hari</span></p>
+          </div>
+        </div>
+      </div>
 
-  <div class = "container" id = "test">
-    <h4>Over the last 2 weeks, how often have you been bothered by any of the following problems?
-        <br><span class="hBM">Dalam tempoh 2 minggu yang lepas, berapa kerapkali anda terganggu oleh masalah  berikut?</span>
-    </h4>
-    <hr>
-    <div class ="row">
-      <div class="col-md">
-        <div class = "r">
-            <p id = "num">0</p>
-            <p class="indicator">Not at all<br><span class="bm">Tidak pernah sama sekali</span></p>
-        </div>
+      <div class = "mt-4">
+        <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
       </div>
-      <div class="col-md">
-        <div class = "r">
-            <p id = "num">1</p>
-            <p class="indicator">Several days<br><span class="bm">Beberapa hari</span></p>
-        </div>
-      </div>
-      <div class="col-md-auto">
-        <div class = "r">
-            <p id = "num">2</p>
-            <p class="indicator">More than half the days<br><span class="bm">Lebih dari seminggu</span></p>
-        </div>
-      </div>
-      <div class="col-md">
-        <div class = "r">
-            <p id = "num">3</p>
-            <p class="indicator">Nearly everyday<br><span class="bm">Hampir setiap hari</span></p>
-        </div>
-      </div>
-    </div>
-
-    <div class = "mt-4">
-      <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
     </div>
   </div>
 </div>
 </template>
 
 <script>
+import PortalHeader from '../PortalHeader'
+
 export default {
+  components: {PortalHeader},
   data(){
     return{
       rangeInfo: [],

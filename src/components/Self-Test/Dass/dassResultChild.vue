@@ -1,17 +1,19 @@
 <template>
     <div class="container" id = "test">
-        <h3>{{ name }}</h3>
+        <h3 class="type-name">{{ name }} <br> <span class="type-name-bm">{{nameBm}}</span></h3>
         <div class = "row">
             <div class = "col-lg-auto mb-1">
                 <div id = "scoreBox">
                     <p id = "score">{{ score }}</p>
                     <h5>SCORE</h5>
+                    <p id="malaySkor">SKOR</p>
                 </div>
             </div>
             <div class = "col">
               <div>
                 <div id = "diagBox" :style="{ 'background-color': colour }">
-                    <h1>{{ level }}</h1>
+                    <h1 id="level">{{ level }}</h1>
+                    <p id="level-bm">{{ levelBm }}</p>
                 </div>
                 <div class="progress" id = "scales">
                     <div class="progress-bar" id = "empty" role="progressbar" :style="{width: (((score-0.5)/21)*100)+'%'}" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
@@ -32,31 +34,32 @@
                     <tbody>
                        <tr>
                         <td id = "minimal"></td>
-                        <td>{{label[0]}}</td>
+                        <td><span class="engLabel">{{label[0]}}</span><span class="malayLabel"> / {{labelBm[0]}}</span></td>
                       </tr>
                       <tr>
                         <td id = "mild"></td>
-                        <td>{{label[1]}}</td>
+                        <td><span class="engLabel">{{label[1]}}</span><span class="malayLabel"> / {{labelBm[1]}}</span></td>
                       </tr>
                       <tr>
                         <td id = "moderate"></td>
-                        <td>{{label[2]}}</td>
+                        <td><span class="engLabel">{{label[2]}}</span><span class="malayLabel"> / {{labelBm[2]}}</span></td>
                       </tr>
                       <tr>
                         <td id = "modSevere"></td>
-                        <td>{{label[3]}}</td>
+                        <td><span class="engLabel">{{label[3]}}</span><span class="malayLabel"> / {{labelBm[3]}}</span></td>
                       </tr>
                       <tr>
                         <td id = "Severe"></td>
-                        <td>{{label[4]}}</td>
+                        <td><span class="engLabel">{{label[4]}}</span><span class="malayLabel"> / {{labelBm[4]}}</span></td>
                       </tr>
                     </tbody>
-                  </table>
+              </table>
             </div>
         </div>
         <div class="row  mt-3 mb-3 mx-1 align-items-center justify-content-center">
           <div class="col">
-            <p :id="text">{{ desc }}</p>
+            <p id="descEng">{{ desc }}</p>
+            <p id="descBm">{{ descBm }}</p>
           </div>
         </div>
     </div>
@@ -64,12 +67,12 @@
 
 <script>
 export default {
-  props: ['name', 'score', 'level', 'desc', 'colour', 'width', 'text', 'label']
+  props: ['name', 'nameBm', 'score', 'level', 'levelBm', 'desc', 'descBm', 'colour', 'width', 'label', 'labelBm']
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="css">
+<style scoped>
 
 #score{
     text-align: center;
@@ -90,12 +93,16 @@ h5{
     font-weight: bold;
     color: white;
 }
-h3{
+.type-name{
   text-align: center;
   font-weight: bold;
   background: #F0F0F0;
-  border-radius: 5px;
+  border-radius: 13px;
   padding: 1%;
+}
+.type-name-bm{
+  font-size: 15px;
+  font-weight: lighter;
 }
 #test {
     box-shadow: 0px 10px 15px #6b6b6b9c;
@@ -109,7 +116,7 @@ h3{
     background-color: rgb(105, 105, 105);
     border-radius: 10px;
     line-height: 1;
-    padding: 30px 40px 30px 40px
+    padding: 20px 40px;
 }
 
 #diagBox{
@@ -157,39 +164,50 @@ h3{
 }
 
 #minimal{
-    background-color: #CDEE4A;
+    background-color: #CDEE4A !important;
     text-align: start;
     padding-left: 10px;
 }
 
 #mild{
-    background-color: #EEE84A;
+    background-color: #EEE84A !important;
 }
 
 #moderate{
-    background-color: #EED14A;
+    background-color: #EED14A !important;
 }
 
 #modSevere{
-    background-color: #EE9B4A;
+    background-color: #EE9B4A !important;
 }
 
 #Severe{
-    background-color: #EE5D4A;
+    background-color: #EE5D4A !important;
     text-align: end;
     padding-right: 10px;
 }
 
-#diagTextNormal{
+#descEng{
+    color: #404040;
     text-align: center;
-    font-size: 20px;
-    color: black;
+    font-size: medium;
 }
-#diagTextWarn{
+#descBm{
+    color: grey;
     text-align: center;
-    font-size: 20px;
-    color: red;
-    font-weight: bold;
+    font-style: italic;
+    font-size: small;
+}
+.malayLabel {
+    font-style: italic;
+    font-size:8px;
+    color: grey;
+    margin-bottom: 0;
+}
+.engLabel {
+    font-size:12px;
+    color: black;
+    margin-bottom: 0;
 }
 #printBtn{
     float: right;
@@ -200,31 +218,73 @@ h3{
     width: 30px;
     border-radius: 10;
 }
-
+#level-bm{
+  font-style: italic;
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  margin-bottom: 0;
+  padding-bottom: 25px;
+}
+#level{
+  padding: 25px 30px 10px 30px;
+}
+#malaySkor{
+  font-style: italic;
+  text-align: center;
+  color: white;
+  font-size: small;
+  margin-bottom: 0;
+}
+.r{
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+}
+.num {
+  max-height: 30px;
+  margin: 0px 10px;
+  padding: 15px 12px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.indicator{
+  margin: 0px 0px;
+}
 @media (max-width: 760px) {
     #test {
-    padding: 20px 20px 3px 20px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    width: 90%
+      padding: 20px 20px 3px 20px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      width: 90%
     }
     #diagBox{
-    background-color: #CDEE4A;
-    border-radius: 10px;
-    margin-bottom: 0px;
-    margin-top: 20px
+      background-color: #CDEE4A;
+      border-radius: 10px;
+      margin-bottom: 0px;
+      margin-top: 20px
     }
     .meterText{
-    font-size: 10px;
-    margin-top: 5px;
-    line-height: 1.2;
+      font-size: 10px;
+      margin-top: 5px;
+      line-height: 1.2;
     }
     #score{
-    text-align: center;
-    font-weight: bold;
-    font-size: 60px;
-    margin: 0px;
-    color: white;
+      text-align: center;
+      font-weight: bold;
+      font-size: 60px;
+      margin: 0px;
+      color: white;
+    }
+    #diagTextNormal{
+      font-size: 2vw;
+    }
+}
+@media (max-width: 600px) {
+    #diagTextNormal{
+      font-size: 3vw;
     }
 }
 </style>
