@@ -320,8 +320,8 @@ export default {
       this.anxietyScore = this.model.anxiety.reduce((a, b) => a + b, 0)
       this.depressionScore = this.model.depression.reduce((a, b) => a + b, 0)
 
-      //const url = '10.22.120.108:8000/api/getTestRange?type=2'
-      const url = 'http://127.0.0.1:8000/api/getTestRange?type=2'
+      const url = '10.22.120.108:8000/api/getTestRange?type=2'
+      //const url = 'http://127.0.0.1:8000/api/getTestRange?type=2'
       const response = await this.$axios.get(url);
       this.rangeInfo = response.data.data;
       console.log(this.rangeInfo)
