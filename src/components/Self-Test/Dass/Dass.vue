@@ -320,7 +320,7 @@ export default {
       this.anxietyScore = this.model.anxiety.reduce((a, b) => a + b, 0)
       this.depressionScore = this.model.depression.reduce((a, b) => a + b, 0)
 
-      const url = 'http://10.22.120.108:8000/api/getTestRange?type=2'
+      const url = 'https://10.22.120.108:8000/api/getTestRange?type=2'
       const response = await this.$axios.get(url);
       this.rangeInfo = response.data.data;
 
@@ -494,7 +494,7 @@ export default {
       testOnly.append("type", "2");
       testOnly.append("score", this.stressScore + '-' + this.anxietyScore + '-' + this.depressionScore);
       this.$axios
-        .post('http://10.22.120.108:8000/api/postTest', testOnly)
+        .post('https://10.22.120.108:8000/api/postTest', testOnly)
         .then((response) =>{
                this.$router.push({path: '/dass-results', query: {id: response.data.id}})
         })
