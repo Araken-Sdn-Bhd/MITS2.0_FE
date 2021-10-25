@@ -79,7 +79,8 @@ data(){
                       maxHeight: 200,
                       showLabels: false,
                       key: "value",
-                      label: "name"
+                      label: "name",
+                      allowEmpty: false
                     },
                     styleClasses: ["col-12 col-md-6", "mb-0"],
                     disabled:()=>{
@@ -120,7 +121,8 @@ data(){
                       maxHeight: 200,
                       showLabels: false,
                       key: "value",
-                      label: "name"
+                      label: "name",
+                      allowEmpty: false
                     },
                     styleClasses: ["col-12 col-md-6", "mb-0"],
                     values: [

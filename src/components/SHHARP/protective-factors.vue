@@ -18,7 +18,7 @@
     </div>
 
     <div class="container">
-      <div class = "mt-4 d-flex justify-content-center">
+      <div class = "mt-4">
         <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
       </div>
     </div>
@@ -255,8 +255,8 @@ div.errors.help-block{
   color: red;
 }
 ol, ul, dl {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 .vue-form-generator .field-wrap{
   align-items: center;

@@ -315,16 +315,12 @@ export default {
     redirectToHome(){
       location.href = 'https://mentari.moh.gov.my/?page_id=200'
     },
-    async redirectToResult(){
+    redirectToResult(){
       this.stressScore = this.model.stress.reduce((a, b) => a + b, 0)
       this.anxietyScore = this.model.anxiety.reduce((a, b) => a + b, 0)
       this.depressionScore = this.model.depression.reduce((a, b) => a + b, 0)
 
-      const url = '10.22.120.108:8000/api/getTestRange?type=2'
-      //const url = 'http://127.0.0.1:8000/api/getTestRange?type=2'
-      const response = await this.$axios.get(url);
-      this.rangeInfo = response.data.data;
-      console.log(this.rangeInfo)
+
 
       if(this.stressScore>=this.rangeInfo[0].range_min_value && this.stressScore<this.rangeInfo[0].range_max_value+1){
         this.stressLevel = this.rangeInfo[0].range_label
@@ -502,6 +498,13 @@ export default {
                this.$router.push({path: '/dass-results', query: {id: response.data.id}})
         })
     }
+  },
+  created(){
+    this.$axios.get("https://10.22.120.108:8000/api/getTestRange?type=2")
+    .then(response => this.rangeInfo = response.data.data)
+    .catch(error => {
+      console.error("There was an error!", error);
+    });
   }
 }
 </script>
