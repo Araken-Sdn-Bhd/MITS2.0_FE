@@ -493,7 +493,7 @@ export default {
       testOnly.append("score", this.stressScore + '-' + this.anxietyScore + '-' + this.depressionScore);
       this.$axios
         //.post('http://127.0.0.1:8000/api/postTest', testOnly)
-        .post('10.22.120.108:8000/api/postTest', testOnly)
+        .post('https://10.22.120.108:8000/api/postTest', testOnly)
         .then((response) =>{
                this.$router.push({path: '/dass-results', query: {id: response.data.id}})
         })
