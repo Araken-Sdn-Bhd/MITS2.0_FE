@@ -32,10 +32,6 @@ import SHHARPForm from './components/SHHARP/SHHARP-form'
 
 export default [
   {
-    path: '/',
-    component: Dass
-  },
-  {
     path: '/dass',
     component: Dass
   },
