@@ -1,9 +1,9 @@
 <template>
   <div>
-    <b-container fluid class="mt-2 mb-3">
+    <b-container fluid class="mt-4 mb-3">
       <b-row class="justify-content-md-center">
         <b-col class="col-md-8">
-          <b-img fluid center :src="allLogo" alt="Logo"></b-img>
+          <a href="https://mentari.moh.gov.my"><b-img fluid center :src="allLogo" alt="Logo"></b-img></a>
         </b-col>
       </b-row>
     </b-container>
