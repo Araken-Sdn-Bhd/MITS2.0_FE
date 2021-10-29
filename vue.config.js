@@ -1,3 +1,5 @@
+
+publicPath: process.env.NODE_ENV === 'production'
 module.exports = {
-    publicPath: '/dist'
-  }
+    publicPath: process.env.NODE_ENV === 'production' ? '/MITS2.0_FE' : '/'
+}
