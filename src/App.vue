@@ -740,8 +740,8 @@ export default {
         this.stressScore + "-" + this.anxietyScore + "-" + this.depressionScore
       );
       this.$axios
-        //.post('http://127.0.0.1:8000/api/postTest', testOnly)
-        .post("https://10.22.120.108:8000/api/postTest", testOnly)
+        .post('http://127.0.0.1:8000/api/postTest', testOnly)
+        // .post("https://10.22.120.108:8000/api/postTest", testOnly)
         .then((response) => {
           this.$router.push({
             path: "/dass-results",
@@ -752,7 +752,8 @@ export default {
   },
   created() {
     this.$axios
-      .get("https://10.22.120.108:8000/api/getTestRange?type=2")
+      .get("http://127.0.0.1:8000/api/getTestRange?type=2")
+      // .get("https://10.22.120.108:8000/api/getTestRange?type=2")
       .then((response) => (this.rangeInfo = response.data.data))
       .catch((error) => {
         console.error("There was an error!", error);
