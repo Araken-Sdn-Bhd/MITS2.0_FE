@@ -1,3 +1,4 @@
 module.exports = {
-    publicPath: '/dist'
-  }
+  publicPath: 'MITS2.0_FE',
+  filenameHashing: false
+}
