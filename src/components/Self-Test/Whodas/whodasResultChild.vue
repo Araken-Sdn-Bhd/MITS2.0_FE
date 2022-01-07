@@ -1,94 +1,32 @@
 <template>
 <div>
-    <div class="container test">
-        <div id ="domain">
-            <h4>{{domain}}</h4>
+    <div class="container whodas-result">
+        <div class ="domain">
+            <h4 class='domain-text'>{{domain}}</h4>
             <div class="bm">{{domainBM}}</div>
         </div>
         <div class = "row justify-content-between">
             <div class = "col-md-auto">
-                <div class = "scoreBox average">
+                <div class = "score-box average">
                     <p class = "score avg">{{avg_domain_scr}}</p>
-                    <h5 class="scoretxt avg">AVERAGE DOMAIN SCORE</h5>
+                    <h5 class="score-text avg">AVERAGE DOMAIN SCORE</h5>
                     <div class="bm">PURATA SKOR DOMAIN</div>
                 </div>
             </div>
             <div class = "col-md">
-                <div class = "scoreBox">
+                <div class = "score-box">
                     <p class = "score">{{domain_scr}}</p>
-                    <h5 class="scoretxt">DOMAIN SCORE</h5>
+                    <h5 class="score-text">DOMAIN SCORE</h5>
                     <div class="bm white">SKOR DOMAIN</div>
                 </div>
             </div>
             <div class = "col-md-auto">
-                <div class = "scoreBox percentage">
+                <div class = "score-box percentage">
                     <p class = "score">{{((domain_scr/max_score)*100).toFixed(1)}}%</p>
-                    <h5 class="scoretxt">DOMAIN PERCENTAGE</h5>
+                    <h5 class="score-text">DOMAIN PERCENTAGE</h5>
                     <div class="bm white">PERATUSAN DOMAIN</div>
                 </div>
             </div>
-            <!--
-            <div class = "col">
-                <div id = "diagBox" v-bind:style="{ 'background-color': colour }">
-                    <h1>{{level}}</h1>
-                </div>
-                <div class="progress" id = "scales">
-                    <div class="progress-bar" id = "empty" role="progressbar" v-bind:style="{width: ((domain_scr-(0.035*max_score))/max_score)*100+'%'}" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                    <div class="progress-bar" id = "arrow" v-bind:style="{ 'border-bottom': '16px solid'+colour }" role="progressbar" style="width: 3.5%" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <div class="progress" id = "meter">
-                    <div class="progress-bar" id = "none" role="progressbar" style="width: 2%" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100"></div>
-                    <div class="progress-bar" id = "none" role="progressbar" v-bind:style="{width: ((range.data[index[0]].range_max_value-range.data[index[0]].range_min_value+1)/max_score)*100+'%'}" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                    <div class="progress-bar" id = "mild" role="progressbar" v-bind:style="{width: ((range.data[index[1]].range_max_value-range.data[index[1]].range_min_value+1)/max_score)*100+'%'}" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                    <div class="progress-bar" id = "moderate" role="progressbar" v-bind:style="{width: ((range.data[index[2]].range_max_value-range.data[index[2]].range_min_value+1)/max_score)*100+'%'}" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                    <div class="progress-bar" id = "severe" role="progressbar" v-bind:style="{width: ((range.data[index[3]].range_max_value-range.data[index[3]].range_min_value+1)/max_score)*100+'%'}" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                    <div class="progress-bar" id = "extreme" role="progressbar" v-bind:style="{width: ((range.data[index[4]].range_max_value-range.data[index[4]].range_min_value+1)/max_score)*100+'%'}" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                    <div class="progress-bar" id = "extreme" role="progressbar" style="width: 2%" aria-valuenow="2" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <div id="meterTextBox">
-                    <div class = "meterText" v-bind:style="{width: ((range.data[index[0]].range_max_value-range.data[index[0]].range_min_value+1)/max_score)*100+'%'}">
-                        {{range.data[index[0]].range_label}}
-                    </div>
-                    <div class = "meterText" v-bind:style="{width: ((range.data[index[1]].range_max_value-range.data[index[1]].range_min_value+1)/max_score)*100+'%'}">
-                        {{range.data[index[1]].range_label}}
-                    </div>
-                    <div class = "meterText" v-bind:style="{width: ((range.data[index[2]].range_max_value-range.data[index[2]].range_min_value+1)/max_score)*100+'%'}">
-                        {{range.data[index[2]].range_label}}
-                    </div>
-                    <div class = "meterText" v-bind:style="{width: ((range.data[index[3]].range_max_value-range.data[index[3]].range_min_value+1)/max_score)*100+'%'}">
-                        {{range.data[index[3]].range_label}}
-                    </div>
-                    <div class = "meterText" v-bind:style="{width: ((range.data[index[4]].range_max_value-range.data[index[4]].range_min_value+1)/max_score)*100+'%'}">
-                        {{range.data[index[4]].range_label}}
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-auto mt-2">
-                <table class="table table-sm table-hover">
-                    <tbody>
-                        <tr>
-                            <td id = "none"></td>
-                            <td>{{range.data[index[0]].range_label}}</td>
-                        </tr>
-                        <tr>
-                            <td id = "mild"></td>
-                            <td>{{range.data[index[1]].range_label}}</td>
-                        </tr>
-                        <tr>
-                            <td id = "moderate"></td>
-                            <td>{{range.data[index[2]].range_label}}</td>
-                        </tr>
-                        <tr>
-                            <td id = "severe"></td>
-                            <td>{{range.data[index[3]].range_label}}</td>
-                        </tr>
-                        <tr>
-                            <td id = "extreme"></td>
-                            <td>{{range.data[index[4]].range_label}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>-->
         </div>
     </div>
 </div>
@@ -105,37 +43,15 @@ export default {
 </script>
 
 <style scoped lang="css">
-#title-print{
-    text-align: center;
-    padding: 2px;
-    position: relative;
-    width: 70%;
-}
-
-h1{
-    text-align: center;
-    font-weight: bold;
-    color: white;
-}
-h4{
-    text-align: center;
-    font-weight: bold;
-}
-h3 {
+.domain-text{
     text-align: center;
     font-weight: bold;
 }
 
-#domain{
+.domain{
     background-color: #F0F0F0;
     padding: 20px 20px 20px 20px;
     margin-bottom: 40px;
-}
-
-h5{
-    text-align: center;
-    font-weight: bold;
-    color: white;
 }
 
 .score{
@@ -146,7 +62,10 @@ h5{
     color: white;
 }
 
-.scoretxt{
+.score-text{
+    text-align: center;
+    font-weight: bold;
+    color: white;
     font-size: 15px;
 }
 
@@ -154,14 +73,14 @@ h5{
     color:rgb(105, 105, 105);
 }
 
-.test {
+.whodas-result {
     padding: 40px 40px 40px 40px;
     box-shadow: 0px 10px 15px #6b6b6b9c;
     border-radius: 20px;
     margin-bottom: 30px;
 }
 
-.scoreBox{
+.score-box{
     background-color: #158470;
     border-radius: 10px;
     line-height: 1;
@@ -177,181 +96,58 @@ h5{
     background-color: #EC7557;
     border: solid 3px #EC7557;
 }
-#diagBox{
-    background-color: #CDEE4A;
-    border-radius: 10px;
-    margin-bottom: 0px;
-    padding: 45px 30px 45px 30px;
-}
 
-/* Score meter */
-#empty {
-    background-color: transparent;
-    color: black;
-    word-wrap: normal;
-}
-
-#scales {
-    background-color: transparent;
-    margin: 0 auto;
-    width: 96%;
-    border-radius: 0px;
-}
-
-#arrow {
-	width: 0;
-	height: 0;
-	border-left: 8px solid transparent;
-	border-right: 8px solid transparent;
-	border-bottom: 15px solid #CDEE4A;
-    background-color: transparent;
-}
-
-#meter{
-    height: 25px;
-    border-radius: 20px;
-}
-
-.meterText{
-    float:left;
-    text-align: center;
-    font-size: 12px;
-    color: black;
-    line-height: 1.2;
-    vertical-align: top;
-    margin-top: 5px;
-}
-
-#none{
-    background-color: #CDEE4A;
-    text-align: start;
-    padding-left: 5px;
-}
-
-#mild{
-    background-color: #EEE84A;
-}
-
-#moderate{
-    background-color: #EED14A;
-}
-
-#severe{
-    background-color: #EE9B4A;
-}
-
-#extreme{
-    background-color: #EE5D4A;
-    text-align: end;
-    padding-right: 5px;
-}
-
-#diagText{
-    text-align: center;
-    font-size: 20px;
-    color: black;
-}
-
-#alertText{
-    text-align: center;
-    font-size: 20px;
-    color: red;
-}
-
-#buttons{
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-#returnBtn{
-    margin: 10px;
-    background-color: #33b76e;
-    padding: 6px 12px;
-    border: #33b76e;
-    color: white;
-    font-size: 14px;
-    font-weight: 400;
-}
-
-#reqBtn{
-    margin: 10px;
-    background-color:#2e6da4;
-    padding: 6px 12px;
-    border: #2e6da4;
-    color: white;
-    font-size: 14px;
-    font-weight: 400;
-}
-.hBM{
-  font-style: italic;
-  font-size: 20px;
-  color: dimgrey;
-  text-align: center;
-}
 .bm{
   font-style: italic;
   font-size: small;
   color: dimgrey;
   text-align: center;
 }
+
 .white{
     color: white;
 }
 
+@media print{
+    .whodas-result{
+        margin-bottom: 0px;
+        padding: 0px 0px 0px 0px;
+    }
+}
+
 @media (max-width: 1012px) {
-    .test{
+    .whodas-result{
         padding: 20px 20px;
     }
-    #domain{
+    .domain{
         margin-bottom: 20px;
     }
     .score{
         font-size: 50px;
     }
-    .scoreBox{
+    .score-box{
         padding: 10px;
-    }
-    #diagBox{
-        padding: 20px;
-    }
-    .meterText{
-        font-size: 12px;
     }
 
 }
 
 @media (max-width: 450px) {
-    .test{
+    .whodas-result{
         width: 100%;
     }
-    #meterTextBox{
-        margin-bottom: 30px;
-    }
-    #domain{
+    .domain{
         margin-bottom: 20px;
-    }
-    h3 {
-        font-size: 90%;
-    }
-    h1{
-        font-size: 30px;
     }
     .score{
         font-size: 50px;
     }
-    .scoreBox{
+    .score-box{
         padding: 10px;
         margin-bottom: 10px;
     }
-    #diagBox{
-        padding: 20px;
-    }
-    .meterText{
-        font-size: 8px;
-    }
 }
 @media (max-width: 766px){
-    .scoreBox{
+    .score-box{
         margin-bottom: 10px;
     }
 }

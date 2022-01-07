@@ -3,33 +3,33 @@
   <PortalHeader :testName="'Patient Health Questionnaire (PHQ-9)'"></PortalHeader>
   
   <div class="container">
-    <div class = "container" id = "test">
-      <h4>Over the last 2 weeks, how often have you been bothered by any of the following problems?
+    <div class = "container phq-container">
+      <h4 class='text-center'>Over the last 2 weeks, how often have you been bothered by any of the following problems?
           <br><span class="hBM">Dalam tempoh 2 minggu yang lepas, berapa kerapkali anda terganggu oleh masalah  berikut?</span>
       </h4>
       <hr>
       <div class ="row justify-content-between">
-        <div class="col-md-auto">
+        <div class="col-lg-auto">
           <div class = "r">
-              <p id = "num">0</p>
+              <p class = "num">0</p>
               <p class="indicator">Not at all<br><span class="bm">Tidak pernah sama sekali</span></p>
           </div>
         </div>
-        <div class="col-md-auto">
+        <div class="col-lg-auto">
           <div class = "r">
-              <p id = "num">1</p>
+              <p class = "num">1</p>
               <p class="indicator">Several days<br><span class="bm">Beberapa hari</span></p>
           </div>
         </div>
-        <div class="col-md-auto">
+        <div class="col-lg-auto">
           <div class = "r">
-              <p id = "num">2</p>
+              <p class = "num">2</p>
               <p class="indicator">More than half the days<br><span class="bm">Lebih dari seminggu</span></p>
           </div>
         </div>
-        <div class="col-md-auto">
+        <div class="col-lg-auto">
           <div class = "r">
-              <p id = "num">3</p>
+              <p class = "num">3</p>
               <p class="indicator">Nearly everyday<br><span class="bm">Hampir setiap hari</span></p>
           </div>
         </div>
@@ -211,8 +211,10 @@ export default {
       var p_score = NAA*0 + SD*1 + MTHD*2 + NE*3;
 
       var p_level = '';
+      var p_level_bm = '';
       var p_colour = '';
       var p_desc = '';
+      var p_desc_bm = '';
       var p_high = '';
 
       const url = 'http://127.0.0.1:8000/api/getTestRange?type=1'
@@ -221,37 +223,47 @@ export default {
 
       if (p_score >= this.rangeInfo[0].range_min_value && p_score < this.rangeInfo[0].range_max_value+1){
           p_level = this.rangeInfo[0].range_label;
+          p_level_bm = this.rangeInfo[0].range_label_bm;
           p_colour = '#CDEE4A';
           p_desc = this.rangeInfo[0].range_description;
+          p_desc_bm = this.rangeInfo[0].range_description_bm;
       }
       else if(p_score >= this.rangeInfo[1].range_min_value && p_score < this.rangeInfo[1].range_max_value+1){
           p_level = this.rangeInfo[1].range_label;
+          p_level_bm = this.rangeInfo[1].range_label_bm;
           p_colour = '#EEE84A';
           p_desc = this.rangeInfo[1].range_description;
+          p_desc_bm = this.rangeInfo[1].range_description_bm;
       }
       else if(p_score >= this.rangeInfo[2].range_min_value && p_score < this.rangeInfo[2].range_max_value+1){
           p_level = this.rangeInfo[2].range_label;
+          p_level_bm = this.rangeInfo[2].range_label_bm;
           p_colour = '#EED14A';
           p_desc = this.rangeInfo[2].range_description;
+          p_desc_bm = this.rangeInfo[2].range_description_bm;
       }
       else if(p_score >= this.rangeInfo[3].range_min_value && p_score < this.rangeInfo[3].range_max_value+1){
           p_level = this.rangeInfo[3].range_label;
+          p_level_bm = this.rangeInfo[3].range_label_bm;
           p_colour = '#EE9B4A';
           p_desc = this.rangeInfo[3].range_description;
-          p_high = "You have a high level of depression. We advise you to request an appointment and seek medical attention immediately!";
+          p_desc_bm = this.rangeInfo[3].range_description_bm;
       }
       else if(p_score >= this.rangeInfo[4].range_min_value && p_score < this.rangeInfo[4].range_max_value+1){
           p_level = this.rangeInfo[4].range_label;
+          p_level_bm = this.rangeInfo[4].range_label_bm;
           p_colour = '#EE5D4A';
           p_desc = this.rangeInfo[4].range_description;
-          p_high = "You have a high level of depression. We advise you to request an appointment and seek medical attention immediately!";
+          p_desc_bm = this.rangeInfo[4].range_description_bm;
       }
 
       let phq_data = {
         score: p_score,
         level: p_level,
+        level_bm: p_level_bm,
         colour: p_colour,
         desc: p_desc,
+        desc_bm: p_desc_bm,
         high: p_high
       }
       sessionStorage.setItem("1_data", JSON.stringify(phq_data));
@@ -271,21 +283,23 @@ export default {
 </script>
 
 <style>
-#phq{
-  text-align: center;
-  font-weight: bold;
+.phq-container {
+  box-shadow: 0px 10px 15px #6b6b6b9c;
+  padding: 40px 40px 100px 40px;
+  border-radius: 20px;
   margin-bottom: 50px;
 }
 
-h4 {
+.text-center {
   text-align: center;
 }
+
 
 hr {
   margin: 40px 0px 40px 0px;
 }
 
-#num {
+.num {
   margin-right: 20px;
   margin-left: 10px;
   text-align: center;
@@ -299,25 +313,23 @@ hr {
   color: #777;
 
 }
-#test {
-  box-shadow: 0px 10px 15px #6b6b6b9c;
-  padding: 40px 40px 100px 40px;
-  border-radius: 20px;
-  margin-bottom: 50px;
-}
+
 .r{
   display: inline-flex;
   width: 100%;
   align-items: center;
 }
+
 .indicator{
   margin: 10px 10px 0px 0px;
 }
+
 .hBM{
   font-style: italic;
   font-size: 20px;
   color: dimgrey;
 }
+
 .bm{
   font-style: italic;
   font-size: small;
@@ -326,23 +338,27 @@ hr {
 .label-width{
   width: 700px;
 }
+
 div.errors.help-block{
   display: none;
   width: 0px;
 }
+
 .error-field{
   background: #F9C1C6;
 }
+
 .form-group.required>label:after{
   display: none;
   width: 0px;
 }
+
 .requiredLabel{
   color: red;
 }
 
 @media (max-width: 768px) {
-    #test {
+    .phq-container {
         padding: 40px 20px 100px 20px;
         margin-bottom: 50px;
     }
@@ -351,7 +367,7 @@ div.errors.help-block{
     }
 }
 @media (min-width: 768px) and (max-width: 992px) {
-    #test {
+    .phq-container {
         padding: 40px 20px 100px 20px;
         margin-bottom: 50px;
     }
@@ -360,7 +376,7 @@ div.errors.help-block{
     }
 }
 @media (min-width: 992px) and (max-width: 1200px) {
-    #test {
+    .phq-container {
         padding: 40px 20px 100px 20px;
         margin-bottom: 50px;
     }

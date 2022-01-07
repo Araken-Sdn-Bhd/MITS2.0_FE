@@ -3,7 +3,7 @@
   <PortalHeader :testName="'World Health Organization Disability Assessment Schedule 2.0 (WHODAS 2.0)'"></PortalHeader>
   
   <div class="container">
-    <div class = "container" id = "test">
+    <div class = "container whodas-container">
       <Head :domain="'UNDERSTANDING AND COMMUNICATING'" :domainBM="'PEMAHAMAN DAN KOMUNIKASI'"></Head>
       
       <div class = "mt-4">
@@ -189,7 +189,7 @@ export default {
 </script>
 
 <style>
-#test {
+.whodas-container {
   box-shadow: 0px 10px 15px #6b6b6b9c;
   padding: 40px 40px 40px 40px;
   border-radius: 20px;
@@ -231,7 +231,7 @@ div.errors.help-block{
 }
 
 @media (max-width: 768px) {
-    #test {
+    .whodas-container {
         padding: 40px 20px 100px 20px;
         margin-bottom: 50px;
     }
@@ -240,7 +240,7 @@ div.errors.help-block{
     }
 }
 @media (min-width: 768px) and (max-width: 992px) {
-    #test {
+    .whodas-container {
         padding: 40px 20px 100px 20px;
         margin-bottom: 50px;
     }
@@ -249,7 +249,7 @@ div.errors.help-block{
     }
 }
 @media (min-width: 992px) and (max-width: 1200px) {
-    #test {
+    .whodas-container {
         padding: 40px 20px 100px 20px;
         margin-bottom: 50px;
     }

@@ -6,8 +6,6 @@
       <router-link to="/dass">DASS</router-link> &nbsp;
       <router-link to="/cbi">CBI</router-link> &nbsp;
       <router-link to="/whodas_1">WHODAS</router-link> &nbsp;
-      <router-link to="/demographic">Demographic</router-link> &nbsp;
-      <router-link to="/risk-factors">Risk Factors</router-link> &nbsp;
     </div>
 
     <router-view></router-view>

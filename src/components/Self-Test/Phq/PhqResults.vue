@@ -3,16 +3,23 @@
     <PortalHeader :testName="'Patient Health Questionnaire (PHQ-9)'"></PortalHeader>
 
     <div ref="document">
-        <div class="container" id="title-print">
-            <div class="row" style="margin-bottom: 30px">
+        <div class="container mt-5 sub-heading" id="no-show">
+            <h4>Thank you for reaching out to MENTARI Self Test.</h4>
+            <p class='bm'>Terima kasih kerana melayari ujian kendiri MENTARI.</p>
+            
+            <p class='mt-5'><b>Patient Health Questionnaire 9 (PHQ-9)</b> is one of the tools for assessing and monitoring depression severity. <br>Please note, <b>results are not a diagnosis</b>, only a health professional can give a diagnosis.</p>
+            
+            <p class='bm mt-3'><b>Patient Health Questionnaire 9 (PHQ-9)</b> adalah salah satu alat untuk menilai dan memantau keterukan kemurungan. <br>Sila ambil perhatian, <b>keputusan bukan diagnosis</b>, hanya pakar kesihatan yang boleh memberikan diagnosis.<p>
+            
+            <div class="row my-5">
                 <div class="col-md">
                 </div>
                 <div class="col-md">
-                    <h3>DIAGNOSIS</h3>
-                    <p class="bm">DIAGNOSIS</p>
+                    <h2><b>RESULT</b></h2>
+                    <p class="bm">KEPUTUSAN</p>
                 </div>
                 <div class="col-md">
-                    <b-button  id="print" @click="exportToPDF"><b-icon icon="printer" aria-hidden="true"></b-icon> Print</b-button>
+                    <b-button  @click="exportToPDF"><b-icon icon="printer" aria-hidden="true"></b-icon> Print</b-button>
                 </div>
             </div>
         </div>
@@ -28,7 +35,7 @@
                 <div class = "col">
                     <div id = "diagBox" v-bind:style="{ 'background-color': data.colour }">
                         <h1 id="level">{{data.level}}</h1>
-                        <p class="hBM white">Sederhana Teruk</p>
+                        <p class="hBM white">{{data.level_bm}}</p>
                     </div>
                     <div class="progress" id = "scales">
                         <div class="progress-bar" id = "empty" role="progressbar" v-bind:style="{width: (((data.score-0.5)/27)*100)+'%'}" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
@@ -44,34 +51,34 @@
                 </div>
             </div>
             <div class ="row justify-content-between" id="labelLegend">
-                <div class="col-md-auto">
+                <div class="col-sm-auto">
                     <div class = "labelRound">
                         <p class = "num" id="minimal"></p>
-                        <p>{{info[0].range_label}}<br><span class="bm">Minimum</span></p>
+                        <p>{{info[0].range_label}}<br><span class="bm">{{info[0].range_label_bm}}</span></p>
                     </div>
                 </div>
-                <div class="col-md-auto">
+                <div class="col-sm-auto">
                     <div class = "labelRound">
                         <p class = "num" id="mild"></p>
-                        <p>{{info[1].range_label}}<br><span class="bm">Ringan</span></p>
+                        <p>{{info[1].range_label}}<br><span class="bm">{{info[1].range_label_bm}}</span></p>
                     </div>
                 </div>
-                <div class="col-md-auto">
+                <div class="col-sm-auto">
                     <div class = "labelRound">
                         <p class = "num" id="moderate"></p>
-                        <p>{{info[2].range_label}}<br><span class="bm">Sederhana</span></p>
+                        <p>{{info[2].range_label}}<br><span class="bm">{{info[2].range_label_bm}}</span></p>
                     </div>
                 </div>
-                <div class="col-md-auto">
+                <div class="col-sm-auto">
                     <div class = "labelRound">
                         <p class = "num" id="modSevere"></p>
-                        <p>{{info[3].range_label}}<br><span class="bm">Sederhana Teruk</span></p>
+                        <p>{{info[3].range_label}}<br><span class="bm">{{info[3].range_label_bm}}</span></p>
                     </div>
                 </div>
-                <div class="col-md-auto">
+                <div class="col-sm-auto">
                     <div class = "labelRound">
                         <p class = "num" id="severe"></p>
-                        <p>{{info[4].range_label}}<br><span class="bm">Teruk</span></p>
+                        <p>{{info[4].range_label}}<br><span class="bm">{{info[4].range_label_bm}}</span></p>
                     </div>
                 </div>
             </div>
@@ -103,11 +110,12 @@
                 </div>-->
         <!--</div>-->
             <div class = "my-5">
-                <p id = "diagText">{{data.desc}}</p>
+                <p class='result-txt mb-3'>Result and Recommendations</p>
+                <div id = "diagText" class='mb-5' v-html="data.desc"></div>
+
+                <p class='result-txt mb-3'><i>Keputusan dan Cadangan</i></p>
+                <div id = "diagTextBM" v-html="data.desc_bm"></div>
             </div>
-            <!--<div class = "mb-5">
-                <p id = "alertText">{{data.high}}</p>
-            </div>-->
         </div>
         <div v-if="showTimestamp" class="container d-flex flex-row-reverse"><p class="font-italic">{{this.timestamp}}</p></div>
         </div>
@@ -119,7 +127,6 @@
 </template>
 
 <script>
-import html2pdf from 'html2pdf.js'
 import PortalHeader from '../PortalHeader'
 
 export default {
@@ -127,7 +134,7 @@ export default {
     data(){
         return{
             data : {},
-            info: []
+            info: [],
         }
     },
     mounted(){
@@ -137,7 +144,7 @@ export default {
     },
     methods: {
         exportToPDF () {
-            document.title='PHQ Test Result';
+            document.title='PHQ Result';
             window.print();
 	    },
 
@@ -156,7 +163,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="css" media="print">
-#title-print{
+.sub-heading{
     text-align: center;
     padding: 2px;
     position: relative;
@@ -277,14 +284,16 @@ p{
 
 #labelLegend{
     margin-top: 15px;
-    padding-right: 20px;
-    padding-left: 20px;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 
 #diagText{
-    text-align: center;
-    font-size: 20px;
-    color: black;
+}
+
+#diagTextBM{
+    color: dimgrey;
+    font-style: italic;
 }
 
 #alertText{
@@ -343,6 +352,11 @@ p{
   width: 100%;
   align-items: center;
 }
+.result-txt {
+    font-size: 25px;
+    font-weight: bold;
+    color: #158470;
+}
 
 @media print{
     #buttons{
@@ -351,11 +365,14 @@ p{
     #print{
         display: none;
     }
+    #no-show{
+        display: none;
+    }
 }
 
 @media (max-width: 1200px) {
     #test {
-        padding: 20px 20px 50px 20px;
+        padding: 20px;
         border-radius: 20px;
         margin-bottom: 50px;
         width: 90%

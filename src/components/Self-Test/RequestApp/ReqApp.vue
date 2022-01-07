@@ -185,7 +185,7 @@ data() {
 },
 mounted(){
     this.$axios
-        .get('http://127.0.0.1:8000/api/getState?country_id=0')
+        .get('http://127.0.0.1:8000/api/getState?country_id=1')
         .then((response) =>{
             this.model.stateList = response.data.data
         })

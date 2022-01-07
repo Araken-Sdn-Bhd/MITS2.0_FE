@@ -705,7 +705,6 @@ export default {
     created(){
         if(sessionStorage.getItem("SH_data") != null){
             this.data = JSON.parse(sessionStorage.getItem("SH_data"));
-
             this.model.secA.date = this.data.secA.date
             this.model.secA.time = this.data.secA.time
             this.model.secA.occurance = this.data.secA.occurance
@@ -721,8 +720,6 @@ export default {
             this.model.secD.y99_specify = this.data.secD.y99_specify
             this.model.secE = this.data.secE
             this.model.secE_score = this.data.secE_score
-
-
         }
     }
 }

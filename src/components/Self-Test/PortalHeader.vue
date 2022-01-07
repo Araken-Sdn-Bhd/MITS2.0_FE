@@ -24,14 +24,13 @@ export default {
 
 <style>
 #testName{
-  margin-bottom: 50px;
   margin-top: 50px;
+   margin-bottom: 20px;
   color: #595142;
   font-family: "Roboto", Sans-serif;
   font-size: 53px;
   font-weight: 600;
   text-align: center;
-  font-size: 4vw;
   padding: 50px;
   background-color: #F7F6F1;
 }
@@ -39,5 +38,11 @@ export default {
    #testName{
      font-size: 8vw;
    }
+}
+
+@media print{
+    #testName {
+      font-size: 40px;
+    }
 }
 </style>
