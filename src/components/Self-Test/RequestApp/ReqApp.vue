@@ -14,7 +14,7 @@ data() {
             mentari: '',
             fullName: '',
             email: '',
-            nric: '',
+            nric_passport: '',
             telNum: '',
             address1: '',
             address2: '',
@@ -50,15 +50,11 @@ data() {
                     required: true
                 },
                 {
-                    type: "cleave",
-                    label: "NRIC",
-                    model: "nric",
-                    cleaveOptions: {
-                    blocks: [6,2,4],
-                    delimiter: '-',
-                    numericOnly: true
-                    },
-                    placeholder:"XXXXXX-XX-XXXX",
+                    type: "input",
+                    inputType: "text",
+                    label: "NRIC/Passport No",
+                    model: "nric_passport",
+                    styleClasses: "col-md-6"
                 },
                 {
                     type: "input",
