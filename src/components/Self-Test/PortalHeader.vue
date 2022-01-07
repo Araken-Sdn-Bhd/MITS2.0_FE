@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!--<b-container fluid class="mt-4 mb-3">
+    <b-container fluid class="mt-4 mb-3">
       <b-row class="justify-content-md-center">
         <b-col class="col-md-8">
           <a href="https://mentari.moh.gov.my">
@@ -8,7 +8,7 @@
           /></a>
         </b-col>
       </b-row>
-    </b-container>-->
+    </b-container>
     <h1 id="testName">{{ testName }}</h1>
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
   props: ["testName"],
   data() {
     return {
-      //allLogo: require('@/assets/images/all.png')
+      allLogo: require('@/assets/images/all.png')
     };
   },
 };

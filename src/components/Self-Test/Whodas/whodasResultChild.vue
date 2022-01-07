@@ -108,13 +108,6 @@ export default {
     color: white;
 }
 
-@media print{
-    .whodas-result{
-        margin-bottom: 0px;
-        padding: 0px 0px 0px 0px;
-    }
-}
-
 @media (max-width: 1012px) {
     .whodas-result{
         padding: 20px 20px;
